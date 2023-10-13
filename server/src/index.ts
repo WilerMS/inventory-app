@@ -2,16 +2,26 @@ import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 
-import { PORT } from './constants/env'
+import zonesRouter from '@/routes/zones'
+import productsRouter from '@/routes/products'
+import { PORT } from '@/constants/env'
+import { errorMiddleware } from '@/middlewares'
 
 const app = express()
 
 // middlewares
 app.use(morgan('dev'))
 app.use(cors())
+app.use(express.json())
 
 // routes
+app.use('/zones', zonesRouter)
+app.use('/products', productsRouter)
 
+// Error handling
+app.use(errorMiddleware)
+
+// running app
 app.listen(PORT, () => {
   console.log(`Server on port ${PORT}`)
 })
