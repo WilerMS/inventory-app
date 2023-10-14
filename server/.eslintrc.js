@@ -23,6 +23,7 @@ module.exports = {
     },
     "rules": {
       "@typescript-eslint/strict-boolean-expressions": "off",
-      "@typescript-eslint/explicit-function-return-type": "off"
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/no-var-requires": "off"
     }
 }
