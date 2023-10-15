@@ -45,5 +45,8 @@ export const register: RequestHandler = async (req, res) => {
     .query()
     .insert({ name, username, password: hashedPassword })
 
-  return res.json(newUser.toResponse())
+  return res.json({
+    message: 'User successfully created',
+    user: newUser.toResponse()
+  })
 }
