@@ -13,6 +13,7 @@ export class Zone extends Model {
 
   id!: number
   name!: string
+  image?: string
   user_id!: number
   notes?: string
 
@@ -25,6 +26,7 @@ export class Zone extends Model {
     properties: {
       id: { type: 'string' },
       name: { type: 'string' },
+      image: { type: 'string' },
       user_id: { type: 'string' },
       notes: { type: 'string' }
     }
