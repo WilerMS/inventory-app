@@ -83,4 +83,11 @@ export class User extends Model {
       }
     }
   }
+
+  toResponse (): User {
+    return {
+      ...this,
+      password: undefined
+    } satisfies User
+  }
 }

@@ -41,7 +41,9 @@ export const register: RequestHandler = async (req, res) => {
   }
 
   const hashedPassword = await bcrypt.hash(password, 10)
-  const newUser = await User.query().insert({ name, username, password: hashedPassword })
+  const newUser = await User
+    .query()
+    .insert({ name, username, password: hashedPassword })
 
-  return res.json(newUser)
+  return res.json(newUser.toResponse())
 }
