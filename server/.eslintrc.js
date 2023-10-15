@@ -28,5 +28,8 @@ module.exports = {
       "@typescript-eslint/no-misused-promises": "off",
       "@typescript-eslint/await-thenable": "off",
       "@typescript-eslint/no-confusing-void-expression": "off",
+      "@typescript-eslint/prefer-nullish-coalescing": "off",
+      "no-case-declarations": "off",
+      "@typescript-eslint/ban-ts-comment": "off"
     }
 }
