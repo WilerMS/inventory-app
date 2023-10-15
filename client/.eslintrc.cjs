@@ -30,6 +30,7 @@ module.exports = {
     "rules": {
       "@typescript-eslint/explicit-function-return-type": "off",
       "react/react-in-jsx-scope": "off",
-      "@typescript-eslint/promise-function-async"
+      "@typescript-eslint/promise-function-async": "off",
+      "@typescript-eslint/no-confusing-void-expression": "off"
     }
 }
