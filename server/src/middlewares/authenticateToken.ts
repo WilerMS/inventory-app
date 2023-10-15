@@ -5,13 +5,12 @@ import { User } from '@/models/User'
 import { JWT_SECRET } from '@/constants/env'
 import { UnauthorizedError } from '@/errors'
 
-import { type AuthenticatedRequest } from '@/global'
+import { type AuthenticatedRequest } from '@/types'
 import { errorHandler } from '@/utils'
 
-// @ts-expect-error
 export const authenticateToken: RequestHandler = errorHandler(async (
   req: AuthenticatedRequest,
-  res: Response,
+  _res: Response,
   next: NextFunction
 ) => {
   const authHeader = req.headers.authorization
@@ -30,7 +29,7 @@ export const authenticateToken: RequestHandler = errorHandler(async (
 
   req.auth = {
     ...req.auth,
-    user
+    user: user.toResponse()
   }
 
   next()
