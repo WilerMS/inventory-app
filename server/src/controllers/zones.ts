@@ -1,29 +1,84 @@
-import { type Request, type Response } from 'express'
+import { InternalServerError, NotFoundError } from '@/errors'
+import { Zone } from '@/models/Zone'
+import { type AuthenticatedRequest } from '@/types'
+import { type Response } from 'express'
 
-export const listAllZones = (req: Request, res: Response) => {
-  res.send('Listar todas las zonas')
+export const listAllZones = async (req: AuthenticatedRequest, res: Response) => {
+  const zones = await Zone.query().where({ user_id: req.auth?.user.id })
+  return res.json(zones)
 }
 
-export const getZoneDetails = (req: Request, res: Response) => {
+export const getZoneDetails = async (req: AuthenticatedRequest, res: Response) => {
   const zoneId = req.params.zoneId
-  res.send(`Detalles de la zona con ID: ${zoneId}`)
+
+  const zone = await Zone.query()
+    .findById(zoneId)
+    .where({ user_id: req.auth?.user.id })
+
+  if (!zone) {
+    throw new NotFoundError('Zone not found')
+  }
+
+  return res.json(zone)
 }
 
-export const getZoneProducts = (req: Request, res: Response) => {
+export const getZoneProducts = async (req: AuthenticatedRequest, res: Response) => {
   const zoneId = req.params.zoneId
-  res.send(`Detalles de la zona con ID: ${zoneId}`)
+
+  const zone = await Zone.query()
+    .findById(zoneId)
+    .where({ user_id: req.auth?.user.id })
+    .withGraphFetched('products')
+
+  if (!zone) {
+    throw new NotFoundError('Zone not found')
+  }
+
+  return res.json(zone)
 }
 
-export const createNewZone = (req: Request, res: Response) => {
-  res.send('Crear una nueva zona')
+export const createNewZone = async (req: AuthenticatedRequest, res: Response) => {
+  const zone = await Zone.query()
+    .insert({
+      ...req.body,
+      user_id: req.auth?.user.id
+    })
+  return res.json(zone)
 }
 
-export const updateZone = (req: Request, res: Response) => {
+export const updateZone = async (req: AuthenticatedRequest, res: Response) => {
   const zoneId = req.params.zoneId
-  res.send(`Actualizar la zona con ID: ${zoneId}`)
+
+  const zone = await Zone.query()
+    .findById(zoneId)
+    .where({ user_id: req.auth?.user.id })
+    .patch(req.body)
+    .returning('*')
+
+  if (!zone) {
+    throw new NotFoundError('Zone not found')
+  }
+
+  return res.json(zone)
 }
 
-export const deleteZone = (req: Request, res: Response) => {
+export const deleteZone = async (req: AuthenticatedRequest, res: Response) => {
   const zoneId = req.params.zoneId
-  res.send(`Eliminar la zona con ID: ${zoneId}`)
+
+  const zone = await Zone.query()
+    .findById(zoneId)
+    .where({ user_id: req.auth?.user.id })
+
+  if (!zone) {
+    throw new NotFoundError('Zone not found')
+  }
+
+  const deletedCount = await Zone.query()
+    .deleteById(zoneId)
+
+  if (deletedCount === 0) {
+    throw new InternalServerError('Zone was not deleted. Please, contact the admin')
+  }
+
+  return res.status(204).send()
 }

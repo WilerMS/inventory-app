@@ -7,18 +7,19 @@ import {
   listAllZones,
   updateZone
 } from '@/controllers/zones'
+import { errorHandler } from '@/utils'
 
 const router = Router()
 
 // Zones endpoints
-router.get('/', listAllZones)
-router.get('/:zoneId', getZoneDetails)
-router.post('/', createNewZone)
-router.put('/:zoneId', updateZone)
-router.delete('/:zoneId', deleteZone)
+router.get('/', errorHandler(listAllZones))
+router.get('/:zoneId', errorHandler(getZoneDetails))
+router.post('/', errorHandler(createNewZone))
+router.put('/:zoneId', errorHandler(updateZone))
+router.delete('/:zoneId', errorHandler(deleteZone))
 
 // zones -> products endpoint
 
-router.get('/:zoneId/products', getZoneProducts)
+router.get('/:zoneId/products', errorHandler(getZoneProducts))
 
 export default router
