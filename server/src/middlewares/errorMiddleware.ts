@@ -1,7 +1,8 @@
 import { type Request, type Response, type NextFunction } from 'express'
 
-import { ApiError, ConflictError } from '@/errors'
+import { ApiError, ConflictError, UnauthorizedError } from '@/errors'
 import { NotNullViolationError, UniqueViolationError, ValidationError } from 'objection'
+import { TokenExpiredError, JsonWebTokenError } from 'jsonwebtoken'
 
 export const errorMiddleware = (
   err: any,
@@ -41,6 +42,14 @@ export const errorMiddleware = (
       error: NotNullViolationError.name,
       message: err.message,
       details: err.column
+    })
+  }
+
+  if (err instanceof TokenExpiredError || err instanceof JsonWebTokenError) {
+    return res.status(401).json({
+      error: UnauthorizedError.name,
+      message: 'You are not authorized to access this data. Please, log in',
+      details: {}
     })
   }
 
