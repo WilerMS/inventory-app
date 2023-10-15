@@ -13,6 +13,7 @@ CREATE TABLE zones(
   id int PRIMARY KEY AUTO_INCREMENT,
   name varchar(20) NOT NULL,
   user_id int NOT NULL,
+  image varchar(200),
   notes varchar(200),
   constraint uq_zones_name_user unique (name, user_id),
   constraint fk_zones_user foreign key (user_id) references users(id)
