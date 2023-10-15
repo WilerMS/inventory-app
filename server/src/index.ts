@@ -15,7 +15,7 @@ const app = express()
 app.use(morgan('dev'))
 app.use(cors())
 app.use(express.json())
-app.use(express.static('public/images'))
+app.use('/images', express.static('public/images'))
 
 // Auth route, without protection
 app.use('/auth', authRouter)
