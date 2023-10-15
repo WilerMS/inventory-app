@@ -1,7 +1,7 @@
 import { type Request, type Response, type NextFunction } from 'express'
 
-import { ApiError } from '@/errors'
-import { ValidationError } from 'objection'
+import { ApiError, ConflictError } from '@/errors'
+import { NotNullViolationError, UniqueViolationError, ValidationError } from 'objection'
 
 export const errorMiddleware = (
   err: any,
@@ -9,6 +9,7 @@ export const errorMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log({ err })
   if (err instanceof ApiError) {
     return res
       .status(err.status)
@@ -24,6 +25,22 @@ export const errorMiddleware = (
       error: ValidationError.name,
       message: err.message,
       details: err.data
+    })
+  }
+
+  if (err instanceof UniqueViolationError) {
+    return res.status(409).json({
+      error: ConflictError.name,
+      message: 'A record with the same value already exists.',
+      details: err.columns
+    })
+  }
+
+  if (err instanceof NotNullViolationError) {
+    return res.status(400).json({
+      error: NotNullViolationError.name,
+      message: err.message,
+      details: err.column
     })
   }
 
