@@ -4,8 +4,8 @@ import { type Zone } from './Zone'
 import { type Product } from './Product'
 
 // To get types in relationMappings requires imports
-type ZoneType = typeof Zone
-type ProductType = typeof Product
+interface ZoneType { Zone: typeof Zone }
+interface ProductType { Product: typeof Product }
 
 export class User extends Model {
   static tableName: string = 'users'
@@ -61,8 +61,8 @@ export class User extends Model {
   }
 
   static relationMappings () {
-    const Zone = require('./Zone') as ZoneType
-    const Product = require('./Product') as ProductType
+    const { Zone } = require('./Zone') as ZoneType
+    const { Product } = require('./Product') as ProductType
 
     return {
       zones: {
