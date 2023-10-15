@@ -28,11 +28,11 @@ export const BackIcon: FC<IconProps> = ({ height = '1em', width = '1em', ...prop
   <svg
     width={width}
     height={height}
-    viewBox="0 0 24 24" 
-    strokeWidth="2" 
-    stroke="currentColor" 
-    fill="none" 
-    strokeLinecap="round" 
+    viewBox="0 0 24 24"
+    strokeWidth="2"
+    stroke="currentColor"
+    fill="none"
+    strokeLinecap="round"
     strokeLinejoin="round"
     {...props}
   >
