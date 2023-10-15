@@ -13,6 +13,8 @@ export class User extends Model {
 
   id!: number
   name!: string
+  username!: string
+  password!: string
   image?: string
   gender?: 'male' | 'female'
   birth_date?: Date | string
@@ -24,11 +26,37 @@ export class User extends Model {
     type: 'object',
     required: ['name'],
     properties: {
-      id: { type: 'string' },
+      id: { type: 'number' },
       name: { type: 'string' },
+      username: { type: 'string' },
+      password: { type: 'string' },
       image: { type: 'string' },
       gender: { type: 'string' },
       birth_date: { type: 'string' }
+    }
+  }
+
+  static loginJsonSchema = {
+    type: 'object',
+    required: ['username', 'password'],
+    additionalProperties: false,
+    properties: {
+      username: { type: 'string' },
+      password: { type: 'string' }
+    }
+  }
+
+  static registerJsonSchema = {
+    type: 'object',
+    required: ['name', 'username', 'password'],
+    additionalProperties: false,
+    properties: {
+      name: { type: 'string' },
+      username: { type: 'string' },
+      image: { type: 'string' },
+      gender: { type: 'string' },
+      birth_date: { type: 'string' },
+      password: { type: 'string' }
     }
   }
 
