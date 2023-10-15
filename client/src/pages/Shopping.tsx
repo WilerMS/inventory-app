@@ -1,8 +1,8 @@
 import cn from 'classnames'
 
-import productsImage from '@/assets/products-2.png'
+import shoppingImage from '@/assets/list.png'
 
-export default function Products () {
+export default function Shopping () {
   return (
     <main className='w-full h-full pt-[75px] px-4 pb-[100px] overflow-auto scroll-bar-hide relative'>
       <section className="mb-4">
@@ -14,10 +14,10 @@ export default function Products () {
           <div className='border-4 border-[#81c784] aspect-square center flex-col p-10 rounded-full'>
             <img
               className='w-[120px]'
-              src={productsImage}
-              alt="Products"
+              src={shoppingImage}
+              alt="Shopping list image"
               style={{
-                viewTransitionName: 'products-image',
+                viewTransitionName: 'shopping-list-image',
                 contain: 'layout'
               }}
             />
