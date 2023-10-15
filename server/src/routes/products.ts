@@ -1,4 +1,5 @@
 import { Router } from 'express'
+
 import {
   createNewProduct,
   deleteProduct,
@@ -6,14 +7,15 @@ import {
   listAllProducts,
   updateProduct
 } from '@/controllers/products'
+import { errorHandler } from '@/utils'
 
 const router = Router()
 
 // Rutas
-router.get('/', listAllProducts)
-router.get('/:productId', getProductDetails)
-router.post('/', createNewProduct)
-router.put('/:productId', updateProduct)
-router.delete('/:productId', deleteProduct)
+router.get('/', errorHandler(listAllProducts))
+router.get('/:productId', errorHandler(getProductDetails))
+router.post('/', errorHandler(createNewProduct))
+router.put('/:productId', errorHandler(updateProduct))
+router.delete('/:productId', errorHandler(deleteProduct))
 
 export default router
