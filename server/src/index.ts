@@ -5,9 +5,9 @@ import morgan from 'morgan'
 import zonesRouter from '@/routes/zones'
 import authRouter from '@/routes/auth'
 import productsRouter from '@/routes/products'
+import filesRouter from '@/routes/files'
 import { PORT } from '@/constants/env'
-import { errorMiddleware } from '@/middlewares'
-import { authenticateToken } from './middlewares/authenticateToken'
+import { errorMiddleware, authenticateToken } from '@/middlewares'
 
 const app = express()
 
@@ -15,6 +15,7 @@ const app = express()
 app.use(morgan('dev'))
 app.use(cors())
 app.use(express.json())
+app.use(express.static('public/images'))
 
 // Auth route, without protection
 app.use('/auth', authRouter)
@@ -24,6 +25,7 @@ app.use(authenticateToken)
 
 // protected routes
 app.use('/zones', zonesRouter)
+app.use('/files', filesRouter)
 app.use('/products', productsRouter)
 
 // Error handling
