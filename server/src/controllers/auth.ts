@@ -29,7 +29,7 @@ export const login: RequestHandler = async (req, res) => {
     { expiresIn: '2h' }
   )
 
-  return res.json({ message: 'Login success', token })
+  return res.json({ message: 'Login success', token, user: user.toResponse() })
 }
 
 export const register: RequestHandler = async (req, res) => {
