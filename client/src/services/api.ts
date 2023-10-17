@@ -1,15 +1,22 @@
+import { AUTH_STORAGE_KEY, type AuthState } from '@/redux/features/authReducer'
+
 export function api<T> (url: URL | string, options: RequestInit = {}): Promise<T> {
   // Get Authorization Bearer from local storage.
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJ3aWxlciIsImlhdCI6MTY5NzQwNDc2NSwiZXhwIjoxNjk3NDExOTY1fQ.W4pzMw1PNqgiLUzeOWMZxbzBVqhVya0YJCgN0PvV7rA'
-  const headers = token
-    ? { ...options.headers, Authorization: `Bearer ${token}` }
-    : options.headers
+  const authData = localStorage.getItem(AUTH_STORAGE_KEY) ?? 'null'
+  const token = (JSON.parse(authData) as Omit<AuthState, 'isAuthenticated'>)?.token
+
+  const headers = {
+    'Content-Type': 'application/json',
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...options.headers
+  }
 
   return fetch(url, { ...options, headers })
-    .then(response => {
+    .then(async (response) => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        const res = await response.json()
+        throw res
       }
-      return response.json() as Promise<T>
+      return await (response.json() as Promise<T>)
     })
 }

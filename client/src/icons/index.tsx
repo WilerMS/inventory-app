@@ -4,6 +4,7 @@ export interface IconProps {
   width?: number | string
   height?: number | string
   color?: `#${string}`
+  className?: string
 }
 
 export type Icon = FC<IconProps>
@@ -19,8 +20,8 @@ export const UserIcon: FC<IconProps> = ({ height = '1em', width = '1em', ...prop
     {...props}
   >
     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-    <path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" fill="currentColor" ></path>
-    <path d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z"></path>
+    <path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" fill="currentColor"></path>
+    <path d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" fill="currentColor"></path>
   </svg>
 )
 
@@ -140,5 +141,50 @@ export const SearchIcon: FC<IconProps> = ({ height = '1em', width = '1em', color
   <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none" {...props}>
     <circle cx="10" cy="10" r="6" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     <path d="M14.5 14.5L19 19" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+)
+
+export const LoaderIcon: FC<IconProps> = ({ height = '1em', width = '1em', color = '#1C274C', ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    fill="none"
+    strokeWidth="2"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M12 6l0 -3"></path>
+    <path d="M16.25 7.75l2.15 -2.15"></path>
+    <path d="M18 12l3 0"></path>
+    <path d="M16.25 16.25l2.15 2.15"></path>
+    <path d="M12 18l0 3"></path>
+    <path d="M7.75 16.25l-2.15 2.15"></path>
+    <path d="M6 12l-3 0"></path>
+    <path d="M7.75 7.75l-2.15 -2.15"></path>
+  </svg>
+)
+
+export const LogoutIcon: FC<IconProps> = ({ height = '1em', width = '1em', color = '#1C274C', ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    fill="none"
+    strokeWidth="2"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
+    <path d="M9 12h12l-3 -3"></path>
+    <path d="M18 15l3 -3"></path>
   </svg>
 )
