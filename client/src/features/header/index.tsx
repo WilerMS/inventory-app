@@ -1,5 +1,6 @@
 import { useAppNavigate } from '@/hooks/useAppNavigate'
 import { BackIcon, SearchIcon, UserIcon } from '@/icons'
+import { useAppSelector } from '@/redux/hooks'
 import cn from 'classnames'
 import { useCallback, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
@@ -8,6 +9,7 @@ export const Header = () => {
   const ref = useRef<HTMLInputElement>(null)
   const { pathname } = useLocation()
   const { navigate } = useAppNavigate()
+  const user = useAppSelector(state => state.auth.user)
 
   const handleClickUserButton = () => navigate('/profile')
   const handleFocusSearchBar = () => ref.current?.focus()
@@ -26,8 +28,10 @@ export const Header = () => {
     navigate(backRoute[1])
   }, [pathname])
 
+  if (['/login', '/register'].includes(pathname)) return null
+
   return (
-    <header className="w-full absolute z-50 h-[75px] p-4 flex items-center bg-white bg-opacity-[0.82] backdrop-blur-md">
+    <header className="w-full absolute z-50 h-[75px] p-4 flex items-center bg-opacity-[0.82] backdrop-blur-md">
       {pathname !== '/' &&
         <button
           className="mr-2 p-2 rounded-full active:bg-gray-200 transition-all"
@@ -45,7 +49,7 @@ export const Header = () => {
         <input
           ref={ref}
           type="text"
-          placeholder="Buscar..."
+          placeholder="Search something..."
           className="w-full h-full outline-none ml-3 bg-transparent"
         />
         <button className="mr-1" onClick={handleFocusSearchBar}>
@@ -55,14 +59,17 @@ export const Header = () => {
 
       {pathname !== '/profile' &&
         <button
-          className="ml-4 p-2 rounded-full bg-gray-100"
+          className="center ml-4 w-[35px] h-[35px] rounded-full bg-gray-100"
           onClick={handleClickUserButton}
           style={{
             viewTransitionName: 'user-header-button',
             contain: 'layout'
           }}
         >
-          <UserIcon />
+          {user?.image
+            ? <img src={`http://localhost:3000/images/${user.image}`} alt="" />
+            : <UserIcon />
+          }
         </button>
       }
 

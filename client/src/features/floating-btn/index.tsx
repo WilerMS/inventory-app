@@ -1,7 +1,12 @@
 import { AddIcon } from '@/icons'
 import cn from 'classnames'
+import { useLocation } from 'react-router-dom'
 
 export const FloatingActionButton = () => {
+  const { pathname } = useLocation()
+
+  if (['/login', '/register', '/profile'].includes(pathname)) return null
+
   return (
     <button
       className={cn(
