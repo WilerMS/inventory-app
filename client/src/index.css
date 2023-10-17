@@ -17,3 +17,7 @@
   align-items: center;
   justify-content: center;
 }
+
+.animation-6s {
+  animation-duration: 6s;
+}
