@@ -7,6 +7,7 @@ import { buildUrl } from '@/constants/env'
 
 interface RegisterRequestBodyType {
   username: string
+  name: string
   password: string
 }
 
@@ -46,7 +47,7 @@ const useAuthentication = () => {
     onError: setError
   })
 
-  const { mutateAsync: register, isLoading: isLoadingRegister } = useMutation({
+  const { data: registerResult, mutateAsync: register, isLoading: isLoadingRegister } = useMutation({
     mutationFn: registerRequest,
     onSuccess: () => { },
     onError: setError
@@ -59,6 +60,7 @@ const useAuthentication = () => {
   useEffect(() => setError(undefined), [])
 
   return {
+    data: registerResult,
     login,
     logout,
     register,

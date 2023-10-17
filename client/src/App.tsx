@@ -16,6 +16,7 @@ import Shopping from '@/pages/Shopping'
 import Login from './pages/Login'
 import Protect from './features/ProtectedRoute'
 import NotFound from './pages/NotFound'
+import Register from './pages/Register'
 
 export default function App () {
   return (
@@ -31,7 +32,7 @@ export default function App () {
           <FloatingActionButton />
           <Routes>
             <Route key='login' path='/login' element={<Login />} />
-            <Route key='register' path='/register' element={<Login />} />
+            <Route key='register' path='/register' element={<Register />} />
 
             <Route key='home' path='/' element={<Protect component={Home} />} />
             <Route key='product' path='/products/:productId' element={<Protect component={Product} />} />

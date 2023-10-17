@@ -1,10 +1,12 @@
 import cn from 'classnames'
-import { type FC, type InputHTMLAttributes } from 'react'
+import { type CSSProperties, type FC, type InputHTMLAttributes } from 'react'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label: string
-  wrapperClass: string
+  wrapperClass?: string
+  wrapperStyle?: CSSProperties
   id: string
+
 }
 
 const Input: FC<Props> = ({
@@ -15,6 +17,7 @@ const Input: FC<Props> = ({
   className,
   wrapperClass,
   placeholder,
+  wrapperStyle,
   ...props
 }) => {
   return (
