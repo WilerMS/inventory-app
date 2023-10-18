@@ -1,9 +1,10 @@
+import { useCallback, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
+import cn from 'classnames'
+
 import { useAppNavigate } from '@/hooks/useAppNavigate'
 import { BackIcon, SearchIcon, UserIcon } from '@/icons'
 import { useAppSelector } from '@/redux/hooks'
-import cn from 'classnames'
-import { useCallback, useRef } from 'react'
-import { useLocation } from 'react-router-dom'
 
 export const Header = () => {
   const ref = useRef<HTMLInputElement>(null)

@@ -1,15 +1,20 @@
+import { type FormEvent, useState } from 'react'
+import { Navigate } from 'react-router-dom'
 import classNames from 'classnames'
 
-import logo from '@/assets/inventory.png'
-import { Navigate } from 'react-router-dom'
-import { Input, LinkButton } from '@/components/lib'
-import { type FormEvent, useState } from 'react'
-import useAuthentication from '@/hooks/useAuthentication'
-import { LoaderIcon } from '@/icons'
 import Alert from '@/components/lib/Alert'
+import logo from '@/assets/inventory.png'
+import { Input, LinkButton } from '@/components/lib'
+import { useAuthentication } from '@/hooks'
+import { LoaderIcon } from '@/icons'
 
 export default function Register () {
-  const [userData, setUserData] = useState({ username: '', name: '', password: '', 'repeat-password': '' })
+  const [userData, setUserData] = useState({
+    username: '',
+    name: '',
+    password: '',
+    'repeat-password': ''
+  })
   const [validationError, setValidationError] = useState<string>()
   const { data, isLoading, isAuthenticated, error, register } = useAuthentication()
 
@@ -28,11 +33,7 @@ export default function Register () {
 
     setValidationError(undefined)
 
-    const dataToSend = {
-      ...userData,
-      'repeat-password': undefined
-    }
-
+    const dataToSend = { ...userData, 'repeat-password': undefined }
     return register(dataToSend)
   }
 
@@ -62,7 +63,6 @@ export default function Register () {
       </div>
 
       <section id='login' className='mt-[40px] p-8 rounded-lg'>
-
         <div
           className='text-center'
           style={{
@@ -70,10 +70,9 @@ export default function Register () {
             contain: 'layout'
           }}
         >
-          <h2 className='text-4xl font-bold'>&lt;Inventory&gt;</h2>
+          <h2 className='text-4xl font-bold'>Sign up</h2>
           <h3 className='mb-4 mt-2'>Access credentials</h3>
         </div>
-
         <form onSubmit={handleSubmitRegister}>
           <Input
             label='Username'

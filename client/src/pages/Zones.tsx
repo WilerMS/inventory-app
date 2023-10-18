@@ -1,12 +1,14 @@
+import { useQuery } from '@tanstack/react-query'
+
 import storageImage from '@/assets/product-cart.png'
 import NavSquareWidget from '@/components/NavSquareWidget'
 import { api } from '@/services/api'
 import { type ZoneInterface } from '@/types'
-import { useQuery } from '@tanstack/react-query'
+import { buildUrl } from '@/constants/env'
 
 export default function Zones () {
   const fetchZones = async () => {
-    return await api<ZoneInterface[]>('http://localhost:3000/zones')
+    return await api<ZoneInterface[]>(buildUrl('/zones'))
   }
 
   const { data } = useQuery({

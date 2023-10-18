@@ -35,6 +35,7 @@ const Input: FC<Props> = ({
         className={cn(
           'mt-1 p-3 w-full rounded-md border border-gray-300 outline-none',
           'focus:ring focus:ring-blue-200 focus:border-blue-500',
+          // 'invalid:ring-red-200 invalid:border-red-500 invalid:ring-2',
           className
         )}
         placeholder={placeholder}

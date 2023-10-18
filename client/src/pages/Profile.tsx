@@ -2,7 +2,7 @@ import cn from 'classnames'
 
 import { LogoutIcon, UserIcon } from '@/icons'
 import { useAppSelector } from '@/redux/hooks'
-import useAuthentication from '@/hooks/useAuthentication'
+import { useAuthentication } from '@/hooks'
 
 export default function Profile () {
   const user = useAppSelector(state => state.auth.user)

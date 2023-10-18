@@ -1,17 +1,18 @@
+import { type FormEvent, useState } from 'react'
 import classNames from 'classnames'
 
 import logo from '@/assets/inventory.png'
 import { Input, LinkButton } from '@/components/lib'
-import { type FormEvent, useState } from 'react'
-import useAuthentication from '@/hooks/useAuthentication'
+import { useAppNavigate, useAuthentication } from '@/hooks'
 import { LoaderIcon } from '@/icons'
 import Alert from '@/components/lib/Alert'
-import { useAppNavigate } from '@/hooks/useAppNavigate'
 
 export default function Login () {
   const [userData, setUserData] = useState({ username: '', password: '' })
   const { isLoading, isAuthenticated, error, login } = useAuthentication()
   const { navigate } = useAppNavigate()
+
+  if (isAuthenticated) return navigate('/')
 
   const handleChange = (e: FormEvent<HTMLInputElement>) => setUserData({
     ...userData,
@@ -23,8 +24,6 @@ export default function Login () {
     return login(userData)
   }
 
-  if (isAuthenticated) return navigate('/')
-
   return (
     <main className='w-full h-full  flex flex-col'>
       <div
@@ -34,22 +33,18 @@ export default function Login () {
         )}
       >
         <div
+          style={{ viewTransitionName: 'login-app-logo', contain: 'layout' }}
           className={classNames(
             'w-[150px] h-[150px] absolute  bottom-[-60px] center',
             'bg-gradient-to-r from-[#e7eeff] to-[#c8d7ff]',
             'rounded-full shadow-xl shadow-[#0000000c]'
           )}
-          style={{
-            viewTransitionName: 'login-app-logo',
-            contain: 'layout'
-          }}
         >
           <img className='w-1/2' src={logo} alt="Inventory app logo" />
         </div>
       </div>
 
       <section id='login' className='mt-[40px] p-8 rounded-lg'>
-
         <div
           className='text-center'
           style={{
@@ -57,7 +52,7 @@ export default function Login () {
             contain: 'layout'
           }}
         >
-          <h2 className='text-4xl font-bold'>&lt;Inventory&gt;</h2>
+          <h2 className='text-4xl font-bold'>Login</h2>
           <h3 className='mb-4 mt-2'>Access credentials</h3>
         </div>
 
