@@ -9,6 +9,7 @@ interface Props {
   option2: string | boolean | number
   value: string | boolean | number | undefined
   className?: string
+  disabled?: boolean
   onChange: (value: any) => void
 }
 
@@ -16,6 +17,7 @@ const DualSwitch: FC<Props> = ({
   id,
   label,
   value,
+  disabled = false,
   onChange,
   className,
   color = 'bg-rose-500',
@@ -46,6 +48,7 @@ const DualSwitch: FC<Props> = ({
       </label>
       <div className="w-full mt-1 border border-gray-300 rounded-md flex overflow-hidden">
         <button
+          disabled={disabled}
           onClick={handleClickFirstOption}
           className={cn(
             'flex-1 text-center py-3 capitalize',
@@ -56,6 +59,7 @@ const DualSwitch: FC<Props> = ({
           {option1}
         </button>
         <button
+          disabled={disabled}
           onClick={handleClickSecondOption}
           className={cn(
             'flex-1 text-center py-3 capitalize',
