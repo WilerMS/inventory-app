@@ -1,7 +1,7 @@
 import cn from 'classnames'
 
 import { BackIcon, LogoutIcon, UserIcon } from '@/icons'
-import { useAppSelector } from '@/redux/hooks'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { useAppNavigate, useAuthentication } from '@/hooks'
 import { buildUrl } from '@/constants/env'
 import { Input } from '@/components/lib'
@@ -9,20 +9,23 @@ import { type FormEvent, useState } from 'react'
 import { type UserInterface } from '@/types'
 import DualSwitch from '@/components/lib/DualSwitch'
 import Alert from '@/components/lib/Alert'
+import FileInput from '@/components/lib/Uploader'
+import { apiFiles } from '@/services/api'
+import { modifyUserAction } from '@/redux/features/authReducer'
 
 interface UserProfileType extends Partial<UserInterface> {
   password: string
 }
 
 export default function Profile () {
-  const user = useAppSelector(state => state.auth.user)
+  const { navigate } = useAppNavigate()
+  const dispatch = useAppDispatch()
+  const { user } = useAppSelector(state => state.auth)
+  const { data, error, logout, modifyUser, isLoading } = useAuthentication()
   const [userData, setUserData] = useState<UserProfileType>({
     ...user,
     password: ''
   })
-
-  const { navigate } = useAppNavigate()
-  const { data, error, logout, modifyUser } = useAuthentication()
 
   const handleClickBackButton = () => navigate('../')
   const handleChange = (e: FormEvent<HTMLInputElement>) => setUserData({
@@ -33,6 +36,22 @@ export default function Profile () {
     ...userData,
     gender: value
   })
+  const handleChangeImage = (file: File) => {
+    const formData = new FormData()
+    formData.append('file', file)
+
+    return apiFiles<{ message: string }>(
+      buildUrl('/files/user-photo'),
+      {
+        method: 'PUT',
+        body: formData
+      }
+    ).then(data => {
+      // @ts-expect-error
+      dispatch(modifyUserAction(data.user))
+    })
+  }
+
   const handleSubmitProfile = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     return modifyUser(userData)
@@ -55,9 +74,9 @@ export default function Profile () {
       <main className='w-full h-full pt-[75px] px-4 pb-[100px] overflow-auto scroll-bar-hide relative'>
         <div className='bg-gradient-to-b from-red-400 to-red-300 w-full h-[350px] absolute left-0 top-0 rounded-b-[100px]'></div>
         <section className="mb-4">
-          <figure className={cn('w-full h-[220px] center flex-col')}>
+          <figure className={cn('relative w-full h-[220px] center flex-col')}>
             <picture
-              className='w-[200px] h-[200px] center overflow-hidden border-2 border-[#002f41] bg-gray-100 aspect-square center flex-col rounded-full'
+              className=' group w-[200px] h-[200px] center overflow-hidden border-2 border-[#002f41] bg-gray-100 aspect-square center flex-col rounded-full'
               style={{
                 viewTransitionName: 'user-header-button',
                 contain: 'layout'
@@ -67,6 +86,11 @@ export default function Profile () {
                 ? <img src={buildUrl(`/images/${user.image}`)} alt="" />
                 : <UserIcon width={70} height={70} color='#002f41' />
               }
+              <FileInput
+                className='group-hover:opacity-80 absolute opacity-0'
+                onChange={handleChangeImage}
+                acceptedExt={['image/png', 'image/jpeg', 'image/jpg']}
+              />
             </picture>
             <figcaption className="z-40 mt-4 -mb-10 text-center font-bold text-2xl">{user?.username}</figcaption>
           </figure>
@@ -90,6 +114,7 @@ export default function Profile () {
               name='name'
               value={userData.name}
               className='mb-4'
+              disabled={isLoading}
               onChange={handleChange}
             />
 
@@ -100,6 +125,7 @@ export default function Profile () {
               value={userData.password}
               placeholder='•••••••••••'
               className='mb-4'
+              disabled={isLoading}
               onChange={handleChange}
             />
 
@@ -110,6 +136,7 @@ export default function Profile () {
               color='bg-red-400'
               option1='male'
               option2='female'
+              disabled={isLoading}
               onChange={handleChangeGender}
               className='mb-4'
             />
@@ -119,6 +146,7 @@ export default function Profile () {
               label='Birth date'
               type='date'
               name='birth_date'
+              disabled={isLoading}
               value={userData.birth_date}
               className='mb-4'
               onChange={handleChange}

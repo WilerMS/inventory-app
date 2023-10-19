@@ -71,7 +71,7 @@ export const Header = () => {
 
       {pathname !== '/profile' &&
         <button
-          className="center ml-4 w-[35px] h-[35px] rounded-full bg-gray-100"
+          className="center ml-4 w-[35px] h-[35px] rounded-full bg-gray-100 overflow-hidden"
           onClick={handleClickUserButton}
           style={{
             viewTransitionName: 'user-header-button',
