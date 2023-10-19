@@ -17,7 +17,7 @@ export class User extends Model {
   password!: string
   image?: string
   gender?: 'male' | 'female'
-  birth_date?: Date | string
+  birth_date?: string
 
   zones?: Zone[]
   products?: Product[]
@@ -84,10 +84,15 @@ export class User extends Model {
     }
   }
 
+  getFormatedDate () {
+    return this.birth_date ? new Date(this.birth_date).toISOString().slice(0, 10) : undefined
+  }
+
   toResponse (): User {
     return {
       ...this,
-      password: undefined
+      password: undefined,
+      birth_date: this.getFormatedDate()
     } satisfies User
   }
 }
