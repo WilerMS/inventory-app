@@ -3,6 +3,7 @@ import cn from 'classnames'
 import { LogoutIcon, UserIcon } from '@/icons'
 import { useAppSelector } from '@/redux/hooks'
 import { useAuthentication } from '@/hooks'
+import { buildUrl } from '@/constants/env'
 
 export default function Profile () {
   const user = useAppSelector(state => state.auth.user)
@@ -28,7 +29,7 @@ export default function Profile () {
               }}
             >
               {user?.image
-                ? <img src={`http://localhost:3000/images/${user.image}`} alt="" />
+                ? <img src={buildUrl(`/images/${user.image}`)} alt="" />
                 : <UserIcon width={70} height={70} color='#002f41' />
               }
             </div>

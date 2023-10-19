@@ -5,6 +5,7 @@ import cn from 'classnames'
 import { useAppNavigate } from '@/hooks/useAppNavigate'
 import { BackIcon, SearchIcon, UserIcon } from '@/icons'
 import { useAppSelector } from '@/redux/hooks'
+import { buildUrl } from '@/constants/env'
 
 export const Header = () => {
   const ref = useRef<HTMLInputElement>(null)
@@ -32,7 +33,7 @@ export const Header = () => {
   if (['/login', '/register'].includes(pathname)) return null
 
   return (
-    <header className="w-full absolute z-50 h-[75px] p-4 flex items-center bg-opacity-[0.82] backdrop-blur-md">
+    <header className="w-full absolute z-50 h-[75px] p-4 flex items-center bg-white bg-opacity-[0.82] backdrop-blur-md">
       {pathname !== '/' &&
         <button
           className="mr-2 p-2 rounded-full active:bg-gray-200 transition-all"
@@ -68,7 +69,7 @@ export const Header = () => {
           }}
         >
           {user?.image
-            ? <img src={`http://localhost:3000/images/${user.image}`} alt="" />
+            ? <img src={buildUrl(`/images/${user.image}`)} alt="" />
             : <UserIcon />
           }
         </button>
