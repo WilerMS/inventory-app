@@ -31,11 +31,14 @@ export const authSlice = createSlice({
       state.isAuthenticated = false
       state.user = undefined
       state.token = undefined
+    },
+    modifyUserAction: (state, action: PayloadAction<UserInterface>) => {
+      state.user = action.payload
     }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { loginSuccess, logoutAction } = authSlice.actions
+export const { loginSuccess, logoutAction, modifyUserAction } = authSlice.actions
 
 export default authSlice.reducer
