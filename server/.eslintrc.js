@@ -30,6 +30,7 @@ module.exports = {
       "@typescript-eslint/no-confusing-void-expression": "off",
       "@typescript-eslint/prefer-nullish-coalescing": "off",
       "no-case-declarations": "off",
-      "@typescript-eslint/ban-ts-comment": "off"
+      "@typescript-eslint/ban-ts-comment": "off",
+      "@typescript-eslint/naming-convention": "off"
     }
 }
