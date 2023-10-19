@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import { type AuthState, loginSuccess, logoutAction } from '@/redux/features/authReducer'
+import { type AuthState, loginSuccess, logoutAction, modifyUserAction } from '@/redux/features/authReducer'
 import { useMutation } from '@tanstack/react-query'
 import { api } from '@/services/api'
 import { buildUrl } from '@/constants/env'
+import { type UserInterface } from '@/types'
 
 interface RegisterRequestBodyType {
   username: string
@@ -39,6 +40,14 @@ const useAuthentication = () => {
     })
   }, [])
 
+  const modifyUserRequest = useCallback((userData: Partial<UserInterface>) => {
+    setError(undefined)
+    return api<{ message: string }>(buildUrl(`/auth/user/${userData.id}`), {
+      method: 'PUT',
+      body: JSON.stringify(userData)
+    })
+  }, [])
+
   const { mutateAsync: login, isLoading: isLoadingLogin } = useMutation({
     mutationFn: loginRequest,
     onSuccess: (data) => {
@@ -53,6 +62,15 @@ const useAuthentication = () => {
     onError: setError
   })
 
+  const { data: modifyUserResult, mutateAsync: modifyUser, isLoading: isLoadingModifyUser } = useMutation({
+    mutationFn: modifyUserRequest,
+    onSuccess: (data) => {
+      // @ts-expect-error
+      dispatch(modifyUserAction(data.user))
+    },
+    onError: setError
+  })
+
   const logout = useCallback(() => {
     dispatch(logoutAction())
   }, [])
@@ -60,12 +78,13 @@ const useAuthentication = () => {
   useEffect(() => setError(undefined), [])
 
   return {
-    data: registerResult,
+    data: registerResult ?? modifyUserResult,
     login,
     logout,
     register,
+    modifyUser,
     isAuthenticated,
-    isLoading: isLoadingLogin || isLoadingRegister,
+    isLoading: isLoadingLogin || isLoadingRegister || isLoadingModifyUser,
     error
   }
 }
