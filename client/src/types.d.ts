@@ -12,7 +12,7 @@ export interface UserInterface {
   username: string
   image?: string
   gender?: 'male' | 'female'
-  birth_date?: Date | string
+  birth_date?: string
 }
 
 export type Children = JSX.Element | JSX.Element[] | string | string[]
