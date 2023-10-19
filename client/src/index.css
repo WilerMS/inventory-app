@@ -21,3 +21,7 @@
 .animation-6s {
   animation-duration: 6s;
 }
+
+body * {
+  -webkit-tap-highlight-color: transparent;
+}
