@@ -1,0 +1,22 @@
+{
+  "short_name": "MiApp",
+  "name": "Zoneve",
+  "description": "Inventory app",
+  "icons": [
+    {
+      "src": "inventory.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "inventory.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./?source=pwa",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "./",
+  "theme_color": "#ffffff"
+}
