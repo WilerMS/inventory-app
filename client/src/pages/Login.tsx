@@ -52,7 +52,7 @@ export default function Login () {
             contain: 'layout'
           }}
         >
-          <h2 className='text-4xl font-bold'>Login</h2>
+          <h2 className='text-4xl font-bold'>Welcome to Zoneve</h2>
           <h3 className='mb-4 mt-2'>Access credentials</h3>
         </div>
 
