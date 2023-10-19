@@ -1,15 +1,17 @@
-import { type FC } from 'react'
+import { type CSSProperties, type FC } from 'react'
 import cn from 'classnames'
+import { type AnimationProps, motion } from 'framer-motion'
 
 import { useAppNavigate } from '@/hooks/useAppNavigate'
 
-interface Props {
+interface Props extends AnimationProps {
   title: string
   image: string
   path: `/${string}`
   className?: string
   imageAlt?: string
   imgTransitionName?: string
+  style?: CSSProperties
 }
 
 const NavSquareWidget: FC<Props> = ({
@@ -18,20 +20,22 @@ const NavSquareWidget: FC<Props> = ({
   path,
   className,
   imageAlt,
-  imgTransitionName
+  imgTransitionName,
+  ...props
 }) => {
   const { navigate } = useAppNavigate()
 
   const handleClickArticle = () => navigate(path)
 
   return (
-    <article
+    <motion.article
       onClick={handleClickArticle}
       className={cn(
         'w-full relative aspect-square shadow rounded-2xl center cursor-pointer',
         'hover:scale-[1.01] transition-all',
         className
       )}
+      {...props}
     >
       <img
         src={image}
@@ -45,7 +49,7 @@ const NavSquareWidget: FC<Props> = ({
       <div className='absolute h-1/4 bottom-0'>
         <h4 className='text-lg font-bold'>{title}</h4>
       </div>
-    </article>
+    </motion.article>
   )
 }
 
