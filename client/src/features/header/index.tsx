@@ -1,11 +1,13 @@
 import { useCallback, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 import cn from 'classnames'
+import { motion } from 'framer-motion'
 
 import { useAppNavigate } from '@/hooks/useAppNavigate'
 import { BackIcon, SearchIcon, UserIcon } from '@/icons'
 import { useAppSelector } from '@/redux/hooks'
 import { buildUrl } from '@/constants/env'
+import { fadeInOutFromTop } from '@/constants/transition'
 
 export const Header = () => {
   const ref = useRef<HTMLInputElement>(null)
@@ -30,10 +32,18 @@ export const Header = () => {
     navigate(backRoute[1])
   }, [pathname])
 
-  if (['/login', '/register'].includes(pathname)) return null
+  if (['/login', '/register', '/profile'].includes(pathname)) return null
 
   return (
-    <header className="w-full absolute z-50 h-[75px] p-4 flex items-center bg-white bg-opacity-[0.82] backdrop-blur-md">
+    <motion.header
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={fadeInOutFromTop}
+      className={cn(
+        'header w-full absolute z-50 h-[75px] p-4 flex items-center bg-white bg-opacity-[0.82] backdrop-blur-md'
+      )}
+    >
       {pathname !== '/' &&
         <button
           className="mr-2 p-2 rounded-full active:bg-gray-200 transition-all"
@@ -75,6 +85,6 @@ export const Header = () => {
         </button>
       }
 
-    </header>
+    </motion.header>
   )
 }

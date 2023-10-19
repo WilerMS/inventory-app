@@ -25,3 +25,14 @@
 body * {
   -webkit-tap-highlight-color: transparent;
 }
+
+.header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom:-10px;
+  height: 10px; 
+  background: linear-gradient(to bottom, rgb(255, 255, 255), rgba(255, 0, 0, 0)); 
+  opacity: 0.82;
+}
