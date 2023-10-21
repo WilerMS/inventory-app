@@ -1,4 +1,4 @@
-import { type FormEvent, useState } from 'react'
+import { type FormEvent, useState, useEffect } from 'react'
 import classNames from 'classnames'
 
 import logo from '@/assets/inventory.png'
@@ -12,7 +12,9 @@ export default function Login () {
   const { isLoading, isAuthenticated, error, login } = useAuthentication()
   const { navigate } = useAppNavigate()
 
-  if (isAuthenticated) return navigate('/')
+  useEffect(() => {
+    if (isAuthenticated) navigate('/')
+  }, [isAuthenticated])
 
   const handleChange = (e: FormEvent<HTMLInputElement>) => setUserData({
     ...userData,

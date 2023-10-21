@@ -19,6 +19,11 @@ interface MutationErrorType {
   message: string
 }
 
+export interface MutationResponseType {
+  message: string
+  user: UserInterface
+}
+
 const useAuthentication = () => {
   const dispatch = useAppDispatch()
   const [error, setError] = useState<MutationErrorType>()
@@ -34,7 +39,7 @@ const useAuthentication = () => {
 
   const registerRequest = useCallback((userData: RegisterRequestBodyType) => {
     setError(undefined)
-    return api<{ message: string }>(buildUrl('/auth/register'), {
+    return api<MutationResponseType>(buildUrl('/auth/register'), {
       method: 'POST',
       body: JSON.stringify(userData)
     })
@@ -42,7 +47,7 @@ const useAuthentication = () => {
 
   const modifyUserRequest = useCallback((userData: Partial<UserInterface>) => {
     setError(undefined)
-    return api<{ message: string }>(buildUrl(`/auth/user/${userData.id}`), {
+    return api<MutationResponseType>(buildUrl(`/auth/user/${userData.id}`), {
       method: 'PUT',
       body: JSON.stringify(userData)
     })
@@ -65,7 +70,6 @@ const useAuthentication = () => {
   const { data: modifyUserResult, mutateAsync: modifyUser, isLoading: isLoadingModifyUser } = useMutation({
     mutationFn: modifyUserRequest,
     onSuccess: (data) => {
-      // @ts-expect-error
       dispatch(modifyUserAction(data.user))
     },
     onError: setError

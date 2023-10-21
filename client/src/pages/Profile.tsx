@@ -12,6 +12,7 @@ import Alert from '@/components/lib/Alert'
 import FileInput from '@/components/lib/Uploader'
 import { apiFiles } from '@/services/api'
 import { modifyUserAction } from '@/redux/features/authReducer'
+import { type MutationResponseType } from '@/hooks/useAuthentication'
 
 interface UserProfileType extends Partial<UserInterface> {
   password: string
@@ -40,14 +41,14 @@ export default function Profile () {
     const formData = new FormData()
     formData.append('file', file)
 
-    return apiFiles<{ message: string }>(
+    return apiFiles<MutationResponseType>(
       buildUrl('/files/user-photo'),
       {
         method: 'PUT',
         body: formData
       }
     ).then(data => {
-      // @ts-expect-error
+      setUserData({ ...userData, image: data.user.image })
       dispatch(modifyUserAction(data.user))
     })
   }

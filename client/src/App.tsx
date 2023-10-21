@@ -4,19 +4,21 @@ import {
   Route,
   Routes
 } from 'react-router-dom'
+import { Protect } from './features/ProtectedRoute'
 import { Header } from '@/features/header'
 import { FloatingActionButton } from '@/features/floating-btn'
-import Home from '@/pages/Home'
-import Product from '@/pages/Product'
-import Products from '@/pages/Products'
-import Profile from '@/pages/Profile'
-import Zone from '@/pages/Zone'
-import Zones from '@/pages/Zones'
-import Shopping from '@/pages/Shopping'
-import Login from './pages/Login'
-import Protect from './features/ProtectedRoute'
-import NotFound from './pages/NotFound'
-import Register from './pages/Register'
+import {
+  Product,
+  Products,
+  Profile,
+  Home,
+  Login,
+  NotFound,
+  Register,
+  Shopping,
+  Zone,
+  Zones
+} from '@/pages'
 
 export default function App () {
   return (
