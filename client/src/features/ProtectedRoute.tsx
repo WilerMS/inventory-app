@@ -6,12 +6,12 @@ interface Props {
   component: ElementType
 }
 
-export const Protect: FC<Props> = ({ component: Component }) => {
+export const Protect: FC<Props> = ({ component: Component, ...props }) => {
   const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated)
 
   if (!isAuthenticated) {
     return <Navigate to={'/login'} replace />
   }
 
-  return <Component />
+  return <Component {...props} />
 }
