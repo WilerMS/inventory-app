@@ -4,7 +4,7 @@ import { BackIcon, LogoutIcon, UserIcon } from '@/icons'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { useAppNavigate, useAuthentication } from '@/hooks'
 import { buildUrl } from '@/constants/env'
-import { Input } from '@/components/lib'
+import { Input, Wave } from '@/components/lib'
 import { type FormEvent, useState } from 'react'
 import { type UserInterface } from '@/types'
 import DualSwitch from '@/components/lib/DualSwitch'
@@ -13,13 +13,17 @@ import FileInput from '@/components/lib/Uploader'
 import { apiFiles } from '@/services/api'
 import { modifyUserAction } from '@/redux/features/authReducer'
 import { type MutationResponseType } from '@/hooks/useAuthentication'
+import { useHideHeader } from '@/features/header/HeaderContext'
+import { useLocation } from 'react-router-dom'
 
 interface UserProfileType extends Partial<UserInterface> {
   password: string
 }
 
 export default function Profile () {
+  useHideHeader()
   const { navigate } = useAppNavigate()
+  const { state } = useLocation()
   const dispatch = useAppDispatch()
   const { user } = useAppSelector(state => state.auth)
   const { data, error, logout, modifyUser, isLoading } = useAuthentication()
@@ -28,7 +32,7 @@ export default function Profile () {
     password: ''
   })
 
-  const handleClickBackButton = () => navigate('../')
+  const handleClickBackButton = () => navigate(state?.previousPath ?? '/')
   const handleChange = (e: FormEvent<HTMLInputElement>) => setUserData({
     ...userData,
     [e.currentTarget.name]: e.currentTarget.value
@@ -73,7 +77,7 @@ export default function Profile () {
         <LogoutIcon width={28} height={28} />
       </button>
       <main className='w-full h-full pt-[75px] px-4 pb-[100px] overflow-auto scroll-bar-hide relative'>
-        <div className='bg-gradient-to-b from-red-400 to-red-300 w-full h-[350px] absolute left-0 top-0 rounded-b-[100px]'></div>
+        <Wave />
         <section className="mb-4">
           <figure className={cn('relative w-full h-[220px] center flex-col')}>
             <picture

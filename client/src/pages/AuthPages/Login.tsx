@@ -6,8 +6,10 @@ import { Input, LinkButton } from '@/components/lib'
 import { useAppNavigate, useAuthentication } from '@/hooks'
 import { LoaderIcon } from '@/icons'
 import Alert from '@/components/lib/Alert'
+import { useHideHeader } from '@/features/header/HeaderContext'
 
 export default function Login () {
+  useHideHeader()
   const [userData, setUserData] = useState({ username: '', password: '' })
   const { isLoading, isAuthenticated, error, login } = useAuthentication()
   const { navigate } = useAppNavigate()

@@ -7,8 +7,10 @@ import logo from '@/assets/inventory.png'
 import { Input, LinkButton } from '@/components/lib'
 import { useAuthentication } from '@/hooks'
 import { LoaderIcon } from '@/icons'
+import { useHideHeader } from '@/features/header/HeaderContext'
 
 export default function Register () {
+  useHideHeader()
   const [userData, setUserData] = useState({
     username: '',
     name: '',
