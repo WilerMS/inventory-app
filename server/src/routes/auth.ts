@@ -3,7 +3,7 @@ import { Router } from 'express'
 import { User } from '@/models/User'
 import { authenticateToken, validateBody } from '@/middlewares'
 import { errorHandler } from '@/utils'
-import { login, register, updateUser } from '@/controllers/auth'
+import { getUser, login, register, updateUser } from '@/controllers/auth'
 
 const LOGIN_ROUTE = '/login'
 const REGISTER_ROUTE = '/register'
@@ -29,6 +29,12 @@ router.put(
   authenticateToken,
   validateBody(User.jsonSchema),
   errorHandler(updateUser)
+)
+
+router.get(
+  AUTH_USER_ID,
+  authenticateToken,
+  errorHandler(getUser)
 )
 
 export default router

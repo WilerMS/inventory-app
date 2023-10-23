@@ -81,3 +81,20 @@ export const updateUser: RequestHandler = async (req: AuthenticatedRequest, res)
     user: updatedUser.toResponse()
   })
 }
+
+export const getUser: RequestHandler = async (req: AuthenticatedRequest, res) => {
+  const { id } = req.params
+
+  if (req.auth?.user.id !== Number(id)) {
+    throw new UnauthorizedError("You don't have access to this resources")
+  }
+
+  const existingUser = await User.query().findById(id)
+  if (!existingUser) {
+    throw new ConflictError('User not found')
+  }
+
+  return res.json({
+    user: existingUser.toResponse()
+  })
+}
