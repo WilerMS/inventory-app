@@ -4,7 +4,8 @@ import { type FC, useState, type FormEvent } from 'react'
 interface Props {
   id?: string
   label: string
-  color: string
+  bgcolor: string
+  textcolor: string
   option1: string | boolean | number
   option2: string | boolean | number
   value: string | boolean | number | undefined
@@ -20,7 +21,8 @@ const DualSwitch: FC<Props> = ({
   disabled = false,
   onChange,
   className,
-  color = 'bg-rose-500',
+  bgcolor = 'black',
+  textcolor = 'white',
   option1,
   option2
 }) => {
@@ -46,15 +48,18 @@ const DualSwitch: FC<Props> = ({
       >
         {label}
       </label>
-      <div className="w-full mt-1 border border-gray-300 rounded-md flex overflow-hidden">
+      <div id={id} className="w-full mt-1 border border-gray-300 rounded-md flex overflow-hidden">
         <button
           disabled={disabled}
           onClick={handleClickFirstOption}
           className={cn(
             'flex-1 text-center py-3 capitalize',
-            selected === option1 ? `${color} font-bold` : 'bg-white',
-            selected === option1 ? 'text-white' : 'text-black'
+            selected === option1 ? 'font-bold' : 'bg-white'
           )}
+          style={{
+            background: selected === option1 ? bgcolor : 'white',
+            color: selected === option1 ? textcolor : 'black'
+          }}
         >
           {option1}
         </button>
@@ -63,9 +68,12 @@ const DualSwitch: FC<Props> = ({
           onClick={handleClickSecondOption}
           className={cn(
             'flex-1 text-center py-3 capitalize',
-            selected === option2 ? `${color} font-bold` : 'bg-white',
-            selected === option2 ? 'text-white' : 'text-black'
+            selected === option2 ? 'font-bold' : ''
           )}
+          style={{
+            background: selected === option2 ? bgcolor : 'white',
+            color: selected === option2 ? textcolor : 'black'
+          }}
         >
           {option2}
         </button>
