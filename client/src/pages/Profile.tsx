@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { useAppNavigate, useAuthentication } from '@/hooks'
 import { buildUrl } from '@/constants/env'
 import { Input, Wave } from '@/components/lib'
-import { type FormEvent, useState } from 'react'
+import { type FormEvent, useState, useEffect, useMemo } from 'react'
 import { type UserInterface } from '@/types'
 import DualSwitch from '@/components/lib/DualSwitch'
 import Alert from '@/components/lib/Alert'
@@ -15,6 +15,7 @@ import { modifyUserAction } from '@/redux/features/authReducer'
 import { type MutationResponseType } from '@/hooks/useAuthentication'
 import { useHideHeader } from '@/features/header/HeaderContext'
 import { useLocation } from 'react-router-dom'
+import { getContrastColor, getImageAverageColor } from '@/utils'
 
 interface UserProfileType extends Partial<UserInterface> {
   password: string
@@ -27,10 +28,24 @@ export default function Profile () {
   const dispatch = useAppDispatch()
   const { user } = useAppSelector(state => state.auth)
   const { data, error, logout, modifyUser, isLoading } = useAuthentication()
+  const [waveBgColor, setWaveBgColor] = useState<`#${string}`>('#000')
   const [userData, setUserData] = useState<UserProfileType>({
     ...user,
     password: ''
   })
+
+  useEffect(() => {
+    const fetchImageColor = async () => {
+      if (user) {
+        const color = await getImageAverageColor(buildUrl(`/images/${user.image}`))
+        console.log({ color })
+        setWaveBgColor(color)
+      }
+    }
+    fetchImageColor()
+  }, [user])
+
+  const waveTextColor = useMemo(() => getContrastColor(waveBgColor ?? '#000'), [waveBgColor])
 
   const handleClickBackButton = () => navigate(state?.previousPath ?? '/')
   const handleChange = (e: FormEvent<HTMLInputElement>) => setUserData({
@@ -56,7 +71,6 @@ export default function Profile () {
       dispatch(modifyUserAction(data.user))
     })
   }
-
   const handleSubmitProfile = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     return modifyUser(userData)
@@ -67,17 +81,19 @@ export default function Profile () {
       <button
         className="absolute top-4 left-4 z-50 mr-2 p-2"
         onClick={handleClickBackButton}
+        style={{ color: waveTextColor }}
       >
         <BackIcon width={26} height={26}/>
       </button>
       <button
         className="absolute top-4 right-4 z-50 p-2"
         onClick={logout}
+        style={{ color: waveTextColor }}
       >
         <LogoutIcon width={28} height={28} />
       </button>
       <main className='w-full h-full pt-[75px] px-4 pb-[100px] overflow-auto scroll-bar-hide relative'>
-        <Wave />
+        <Wave firstColor={waveBgColor} secondColor={waveBgColor} />
         <section className="mb-4">
           <figure className={cn('relative w-full h-[220px] center flex-col')}>
             <picture
@@ -88,7 +104,7 @@ export default function Profile () {
               }}
             >
               {user?.image
-                ? <img src={buildUrl(`/images/${user.image}`)} alt="" />
+                ? <img className='w-full h-full object-cover' src={buildUrl(`/images/${user.image}`)} alt="" />
                 : <UserIcon width={70} height={70} color='#002f41' />
               }
               <FileInput
@@ -97,7 +113,12 @@ export default function Profile () {
                 acceptedExt={['image/png', 'image/jpeg', 'image/jpg']}
               />
             </picture>
-            <figcaption className="z-40 mt-4 -mb-10 text-center font-bold text-2xl">{user?.username}</figcaption>
+            <figcaption
+              className="z-40 mt-4 -mb-10 text-center font-bold text-2xl"
+              style={{ color: waveTextColor }}
+            >
+              {user?.username}
+            </figcaption>
           </figure>
         </section>
 
@@ -138,7 +159,8 @@ export default function Profile () {
               id='gender'
               value={userData.gender}
               label='Gender'
-              color='bg-red-400'
+              bgcolor={waveBgColor}
+              textcolor={waveTextColor}
               option1='male'
               option2='female'
               disabled={isLoading}
@@ -166,6 +188,10 @@ export default function Profile () {
                 'disabled:bg-red-300',
                 'center relative'
               )}
+              style={{
+                background: waveBgColor,
+                color: waveTextColor
+              }}
             >
               <span>Update</span>
             </button>
