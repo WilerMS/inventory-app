@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useLocation } from 'react-router-dom'
 import cn from 'classnames'
-import { AnimatePresence, motion } from 'framer-motion'
 
 import { useAppNavigate } from '@/hooks/useAppNavigate'
 import { BackIcon, UserIcon } from '@/icons'
@@ -8,10 +9,8 @@ import { useAppSelector } from '@/redux/hooks'
 import { buildUrl } from '@/constants/env'
 import { fadeInOutFromTop } from '@/constants/transition'
 import { useHeaderContext } from './HeaderContext'
-import { useDetectScroll } from '@/hooks/useDetectScroll'
 import SearchBar from './SearchBar'
 import { useDebounce } from '@/hooks'
-import { useEffect, useState } from 'react'
 
 export const Header = () => {
   const { isHidden, searchEvent } = useHeaderContext()
@@ -19,7 +18,6 @@ export const Header = () => {
   const { navigate } = useAppNavigate()
   const { state } = useLocation()
   const user = useAppSelector(state => state.auth.user)
-  const scrolled = useDetectScroll(100)
 
   const [searchedText, setSearchedText] = useState('')
   const debouncedSearchedText = useDebounce(searchedText)
@@ -46,8 +44,8 @@ export const Header = () => {
           exit="out"
           variants={fadeInOutFromTop}
           className={cn(
-            'header w-full absolute z-50 h-[75px] p-4 flex items-center',
-            !scrolled ? 'bottom-fade bg-white bg-opacity-[0.82] backdrop-blur-md' : ''
+            'header w-full absolute z-50 h-[75px] p-4 flex items-center bottom-fade bg-white bg-opacity-[0.82] backdrop-blur-md'
+            // !scrolled ? 'bottom-fade bg-white bg-opacity-[0.82] backdrop-blur-md' : ''
           )}
         >
           {pathname !== '/' &&
@@ -71,12 +69,15 @@ export const Header = () => {
               }}
             >
               {user?.image
-                ? <img src={buildUrl(`/images/${user.image}`)} alt="" />
+                ? <img
+                    className='w-full h-full object-cover'
+                    src={buildUrl(`/images/${user.image}`)}
+                    alt=""
+                  />
                 : <UserIcon />
               }
             </button>
           }
-
         </motion.header>
       }
     </AnimatePresence>
