@@ -4,6 +4,8 @@ import cn from 'classnames'
 
 import { AddIcon } from '@/icons'
 import { type Children } from '@/types'
+import { useAppSelector } from '@/redux/hooks'
+import { getContrastColor } from '@/utils'
 
 interface Props {
   children: Children
@@ -21,6 +23,7 @@ const bgVariants = {
 
 export const FloatingMenu: FC<Props> = ({ children }) => {
   const [expanded, setExpanded] = useState(false)
+  const user = useAppSelector(state => state.auth.user)
 
   const handleToggleExpand = () => setExpanded(state => !state)
 
@@ -44,11 +47,14 @@ export const FloatingMenu: FC<Props> = ({ children }) => {
       <div className={cn('absolute bottom-10 right-6 z-50')}>
         <button
           onClick={handleToggleExpand}
-          className={cn('w-[60px] h-[60px] rounded-full center bg-[#766977] shadow-md ')}
+          className={cn('w-[60px] h-[60px] rounded-full center shadow-md ')}
+          style={{
+            background: user?.color ?? '#766977'
+          }}
         >
           <AddIcon
             className={cn('text-4xl transition-all', expanded ? 'rotate-[135deg]' : '')}
-            color='#fff'
+            color={getContrastColor(user?.color ?? '#fff')}
           />
         </button>
         <AnimatePresence>
