@@ -23,12 +23,10 @@ export const Header = () => {
   const debouncedSearchedText = useDebounce(searchedText)
 
   const handleClickUserButton = () => navigate('/profile')
-  const handleClickBackButton = () => navigate(state?.previousRoute ?? '/')
+  const handleClickBackButton = () => navigate(state?.previousPath ?? '/')
 
   useEffect(() => {
-    if (debouncedSearchedText) {
-      searchEvent(debouncedSearchedText)
-    }
+    searchEvent(debouncedSearchedText)
   }, [debouncedSearchedText])
 
   useEffect(() => {
