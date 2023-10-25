@@ -7,7 +7,6 @@ interface Props {
   to: string
   icon: JSX.Element
   title: string
-  description: string
   className?: string
 }
 
@@ -15,23 +14,18 @@ export const FloatingItem: FC<Props> = ({
   to,
   icon,
   title,
-  description,
   className
 }) => {
   return (
     <LinkButton
       to={to}
       className={cn(
-        'w-full flex items-center p-2 cursor-pointer rounded-lg',
-        'hover:bg-slate-100 border-2 border-transparent hover:border-slate-200 transition-all',
+        'flex items-center justify-between w-[230px] cursor-pointer font-bold my-2',
         className
       )}
     >
-      <span className='text-2xl pl-1 pr-4 cursor-pointer'>{icon}</span>
-      <span className='flex flex-col text-left cursor-pointer'>
-        <span className='text-md font-bold'>{title}</span>
-        <span className='text-sm -mt-1'>{description}</span>
-      </span>
+      <span className='text-white flex-grow text-lg text-right mr-2'>{title}</span>
+      <span className='text-2xl w-[40px] h-[40px] mr-[10px] bg-white rounded-full center'>{icon}</span>
     </LinkButton>
   )
 }
