@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 import Alert from '@/components/lib/Alert'
 import logo from '@/assets/inventory.png'
-import { Input, LinkButton } from '@/components/lib'
+import { Input, LinkButton, StatusBar } from '@/components/lib'
 import { useAuthentication } from '@/hooks'
 import { LoaderIcon } from '@/icons'
 import { useHideHeader } from '@/features/header/HeaderContext'
@@ -43,6 +43,7 @@ export default function Register () {
 
   return (
     <main className='w-full h-full  flex flex-col'>
+      <StatusBar color={'#192543'} />
       <div
         className={classNames(
           'w-full h-[150px] relative rounded-b-[150px] bg-[#192543] flex justify-center',

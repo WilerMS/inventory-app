@@ -2,7 +2,7 @@ import { type FormEvent, useState, useEffect } from 'react'
 import classNames from 'classnames'
 
 import logo from '@/assets/inventory.png'
-import { Input, LinkButton } from '@/components/lib'
+import { Input, LinkButton, StatusBar } from '@/components/lib'
 import { useAppNavigate, useAuthentication } from '@/hooks'
 import { LoaderIcon } from '@/icons'
 import Alert from '@/components/lib/Alert'
@@ -30,6 +30,7 @@ export default function Login () {
 
   return (
     <main className='w-full h-full  flex flex-col'>
+      <StatusBar color={'#192543'} />
       <div
         className={classNames(
           'w-full h-[300px] relative rounded-b-[160px] bg-[#192543] flex justify-center',
