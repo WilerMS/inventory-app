@@ -4,6 +4,7 @@ export interface ZoneInterface {
   image?: string
   user_id: number
   notes?: string
+  color?: `#${string}`
 }
 
 export interface UserInterface {
