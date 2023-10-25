@@ -2,6 +2,8 @@ import { Model } from '@/db'
 import { type JSONSchema } from 'objection'
 import { type Product } from './Product'
 import { type User } from './User'
+import { getPredominantColor } from '@/utils'
+import path from 'path'
 
 // To get types in relationMappings requires imports
 interface ProductType { Product: typeof Product }
@@ -16,6 +18,7 @@ export class Zone extends Model {
   image?: string
   user_id!: number
   notes?: string
+  color?: string
 
   products?: Product[]
   user?: User
@@ -55,5 +58,15 @@ export class Zone extends Model {
         }
       }
     }
+  }
+
+  async getZoneColor () {
+    if (this.image) {
+      this.color = await getPredominantColor(path.resolve(__dirname, '..', '..', 'public/images', this.image))
+    }
+  }
+
+  async $afterFind () {
+    return await this.getZoneColor()
   }
 }

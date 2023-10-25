@@ -12,7 +12,7 @@ export const upload = multer({ dest: path.resolve(__dirname, '../../public/image
 router.post('/', upload.single('file'), errorHandler((req: AuthenticatedRequest, res) => {
   const file = req.file
   if (!file) throw new InternalServerError('File has not been uploaded, please try later')
-  res.send(file.filename)
+  res.json(req.file)
 }))
 
 router.put(
