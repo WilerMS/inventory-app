@@ -11,7 +11,13 @@ import { HeaderProvider } from './features/header/HeaderContext.tsx'
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = document.getElementById('root')!
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false
+    }
+  }
+})
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
