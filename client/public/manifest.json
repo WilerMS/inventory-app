@@ -16,7 +16,7 @@
   ],
   "start_url": "./?source=pwa",
   "background_color": "#fff",
-  "display": "fullscreen",
+  "display": "standalone",
   "scope": "./",
   "theme_color": "#fff"
 }
