@@ -13,6 +13,7 @@ export interface UserInterface {
   image?: string
   gender?: 'male' | 'female'
   birth_date?: string
+  color?: `#${string}`
 }
 
 export type Children = JSX.Element | JSX.Element[] | string | string[]
