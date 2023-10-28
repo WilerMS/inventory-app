@@ -42,7 +42,7 @@ const NavSquareWidget: FC<Props> = ({
       <img
         src={image}
         alt={imageAlt ?? ''}
-        className='w-1/2 h-full -mt-5 object-contain'
+        className='rounded-full h-[110px] w-[110px] aspect-square -mt-7 object-cover'
         style={{
           viewTransitionName: imgTransitionName,
           contain: 'layout'
