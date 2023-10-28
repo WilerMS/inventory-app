@@ -15,7 +15,7 @@ import { SearchIcon } from '@/icons'
 
 export default function Zones () {
   const { setSearchEvent } = useHeaderContext()
-  const fetchZones = async () => await api<ZoneInterface[]>(buildUrl('/zones'))
+  const fetchZones = () => api<ZoneInterface[]>(buildUrl('/zones'))
   const { data } = useQuery({ queryKey: ['zones'], queryFn: fetchZones })
 
   const [filter, setFilter] = useState('')

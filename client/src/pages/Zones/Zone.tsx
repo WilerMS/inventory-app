@@ -14,21 +14,38 @@ import { LinkButton } from '@/components/lib'
 export default function Zone () {
   const { zoneId } = useParams()
   const { state } = useLocation()
-  const fetchZones = async () => await api<ZoneInterface>(buildUrl(`/zones/${zoneId}`))
+  const fetchZones = () => api<ZoneInterface>(buildUrl(`/zones/${zoneId}`))
   const { data: zoneFetched } = useQuery({
     queryKey: ['zones', zoneId],
     queryFn: fetchZones
   })
-
-  console.log({ state })
 
   return (
     <main className='w-full h-full pt-[75px] px-4 pb-[100px] overflow-auto scroll-bar-hide relative'>
      <figure className={cn('relative w-full h-[220px] center flex-col mt-4 mb-3')}>
         <picture className=' group w-[200px] h-[200px] overflow-hidden center rounded-full'>
           {zoneFetched?.image
-            ? <img className='w-full h-full object-cover' src={buildUrl(`/images/${zoneFetched.image}`)} />
-            : <img className='w-[120px]' src={folderImage} alt="Zone" />
+            ? <img
+                className='w-full h-full object-cover'
+                style={{
+                  viewTransitionName: `zone-image-${zoneId}`,
+                  content: 'layout'
+                }}
+                src={buildUrl(`/images/${zoneFetched.image}`)}
+              />
+            : <img
+                className='w-full h-full object-cover'
+                style={{
+                  viewTransitionName: `zone-image-${zoneId}`,
+                  content: 'layout'
+                }}
+                src={
+                  state?.image
+                    ? state.image
+                    : folderImage
+                  }
+                alt="Zone"
+              />
           }
         </picture>
       </figure>
