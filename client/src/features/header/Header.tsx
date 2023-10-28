@@ -16,14 +16,13 @@ export const Header = () => {
   const { isHidden, searchEvent } = useHeaderContext()
   const { pathname } = useLocation()
   const { navigate } = useAppNavigate()
-  const { state } = useLocation()
   const user = useAppSelector(state => state.auth.user)
 
   const [searchedText, setSearchedText] = useState('')
   const debouncedSearchedText = useDebounce(searchedText)
 
   const handleClickUserButton = () => navigate('/profile')
-  const handleClickBackButton = () => navigate(state?.previousPath ?? '/')
+  const handleClickBackButton = () => navigate(-1)
 
   useEffect(() => {
     searchEvent(debouncedSearchedText)
@@ -51,7 +50,7 @@ export const Header = () => {
               className="mr-2 p-2 rounded-full active:bg-gray-200 transition-all"
               onClick={handleClickBackButton}
             >
-              <BackIcon width={24} height={24}/>
+              <BackIcon width={24} height={24} />
             </button>
           }
 

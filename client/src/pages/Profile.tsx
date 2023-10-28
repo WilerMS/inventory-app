@@ -14,7 +14,6 @@ import { apiFiles } from '@/services/api'
 import { modifyUserAction } from '@/redux/features/authReducer'
 import { type MutationResponseType } from '@/hooks/useAuthentication'
 import { useHideHeader } from '@/features/header/HeaderContext'
-import { useLocation } from 'react-router-dom'
 import { getContrastColor } from '@/utils'
 
 interface UserProfileType extends Partial<UserInterface> {
@@ -24,7 +23,6 @@ interface UserProfileType extends Partial<UserInterface> {
 export default function Profile () {
   useHideHeader()
   const { navigate } = useAppNavigate()
-  const { state } = useLocation()
   const dispatch = useAppDispatch()
   const { user } = useAppSelector(state => state.auth)
   const { data, error, logout, modifyUser, isLoading } = useAuthentication()
@@ -35,7 +33,7 @@ export default function Profile () {
 
   const waveTextColor = getContrastColor(user?.color ?? '#000')
 
-  const handleClickBackButton = () => navigate(state?.previousPath ?? '/')
+  const handleClickBackButton = () => navigate(-1)
   const handleChange = (e: FormEvent<HTMLInputElement>) => setUserData({
     ...userData,
     [e.currentTarget.name]: e.currentTarget.value
@@ -72,14 +70,14 @@ export default function Profile () {
         onClick={handleClickBackButton}
         style={{ color: waveTextColor }}
       >
-        <BackIcon width={26} height={26}/>
+        <BackIcon width={26} height={26} color={getContrastColor(user?.color ?? '#fff')} />
       </button>
       <button
         className="absolute top-4 right-4 z-50 p-2"
         onClick={logout}
         style={{ color: waveTextColor }}
       >
-        <LogoutIcon width={28} height={28} />
+        <LogoutIcon width={28} height={28} color={getContrastColor(user?.color ?? '#fff')} />
       </button>
       <main className='w-full h-full pt-[75px] px-4 pb-[100px] overflow-auto scroll-bar-hide relative'>
         <Wave firstColor={user?.color ?? '#fff'} secondColor={user?.color ?? '#fff'} />
