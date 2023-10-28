@@ -90,7 +90,7 @@ export default function ZoneManager () {
         className="absolute top-4 left-4 z-50 mr-2 p-2"
         onClick={handleClickBackButton}
       >
-        <BackIcon width={26} height={26}/>
+        <BackIcon width={26} height={26} color={getContrastColor(zoneFetched?.color ?? '#fff')} />
       </button>
       <main className='w-full h-full pt-[75px] px-4 pb-[100px] overflow-auto scroll-bar-hide relative'>
         <Wave firstColor={zoneFetched?.color ?? '#2a7964'} secondColor={zoneFetched?.color ?? '#2a7964'} />

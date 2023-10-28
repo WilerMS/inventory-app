@@ -12,6 +12,7 @@ import { useHeaderContext } from '@/features/header/HeaderContext'
 import { useEffect, useState } from 'react'
 import { FloatingItem, FloatingMenu } from '@/features/floating-btn'
 import { SearchIcon } from '@/icons'
+import { getContrastColor } from '@/utils'
 
 export default function Zones () {
   const { setSearchEvent } = useHeaderContext()
@@ -73,6 +74,10 @@ export default function Zones () {
                   path={`/zones/${zone.id}`}
                   imageAlt={zone.name}
                   imgTransitionName={`zone-image-${zone.id}`}
+                  style={{
+                    background: zone.color,
+                    color: getContrastColor(zone.color ?? '#fff')
+                  }}
                   className='bg-gradient-to-b from-lime-100 to-lime-200'
                 />
               ))}
