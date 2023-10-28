@@ -28,7 +28,7 @@ export class Zone extends Model {
     required: ['name', 'user_id'],
     additionalProperties: false,
     properties: {
-      id: { type: 'string' },
+      id: { type: 'number' },
       name: { type: 'string' },
       image: { type: 'string' },
       user_id: { type: 'number' },
