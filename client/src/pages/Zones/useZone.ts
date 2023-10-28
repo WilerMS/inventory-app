@@ -14,7 +14,7 @@ const useZone = () => {
 
   const postZoneRequest = useCallback((zoneData: Omit<ZoneInterface, 'id' | 'user_id'>) => {
     setError(undefined)
-    return api<ZoneInterface>(buildUrl('/auth/login'), {
+    return api<ZoneInterface>(buildUrl('/zones'), {
       method: 'POST',
       body: JSON.stringify(zoneData)
     })

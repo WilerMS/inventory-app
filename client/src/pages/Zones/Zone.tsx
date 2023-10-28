@@ -1,8 +1,7 @@
-import cn from 'classnames'
 import { motion } from 'framer-motion'
+import { useLocation, useParams } from 'react-router-dom'
 
 import folderImage from '@/assets/folder.png'
-import { useLocation, useParams } from 'react-router-dom'
 import { framerContainerVariant } from '@/constants/transition'
 import { api } from '@/services/api'
 import { useQuery } from '@tanstack/react-query'
@@ -22,30 +21,17 @@ export default function Zone () {
 
   return (
     <main className='w-full h-full pt-[75px] px-4 pb-[100px] overflow-auto scroll-bar-hide relative'>
-     <figure className={cn('relative w-full h-[220px] center flex-col mt-4 mb-3')}>
-        <picture className=' group w-[200px] h-[200px] overflow-hidden center rounded-full'>
+     <figure className='relative w-full h-[220px] center flex-col mt-4 mb-3'>
+        <picture
+          className=' group w-[200px] h-[200px] overflow-hidden center rounded-full'
+          style={{
+            viewTransitionName: `zone-image-${zoneId}`,
+            content: 'layout'
+          }}
+        >
           {zoneFetched?.image
-            ? <img
-                className='w-full h-full object-cover'
-                style={{
-                  viewTransitionName: `zone-image-${zoneId}`,
-                  content: 'layout'
-                }}
-                src={buildUrl(`/images/${zoneFetched.image}`)}
-              />
-            : <img
-                className='w-full h-full object-cover'
-                style={{
-                  viewTransitionName: `zone-image-${zoneId}`,
-                  content: 'layout'
-                }}
-                src={
-                  state?.image
-                    ? state.image
-                    : folderImage
-                  }
-                alt="Zone"
-              />
+            ? <img className='w-full h-full object-cover' src={buildUrl(`/images/${zoneFetched.image}`)} />
+            : <img className='w-full h-full object-cover' src={state?.image ? state.image : folderImage} />
           }
         </picture>
       </figure>

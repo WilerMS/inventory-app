@@ -9,7 +9,7 @@ import Alert from '@/components/lib/Alert'
 
 import folderImage from '@/assets/folder.png'
 import { useHideHeader } from '@/features/header/HeaderContext'
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { api, apiFiles } from '@/services/api'
 import { buildUrl } from '@/constants/env'
@@ -22,7 +22,6 @@ type FormControlType = FormEvent<HTMLInputElement | HTMLTextAreaElement>
 export default function ZoneManager () {
   useHideHeader()
   const { navigate } = useAppNavigate()
-  const { state } = useLocation()
   const { zoneId } = useParams()
   const { isSuccess, isLoading, error, postZone, putZone } = useZone()
   const fetchZones = async () => await api<ZoneInterface>(buildUrl(`/zones/${zoneId}`))
@@ -47,7 +46,7 @@ export default function ZoneManager () {
     }
   }, [zoneFetched])
 
-  const handleClickBackButton = () => navigate(state?.previousPath ?? '/')
+  const handleClickBackButton = () => navigate(-1)
   const handleChange = (e: FormControlType) => setZoneData({
     ...zoneData,
     [e.currentTarget.name]: e.currentTarget.value
