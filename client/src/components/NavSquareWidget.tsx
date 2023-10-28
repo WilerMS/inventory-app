@@ -25,7 +25,9 @@ const NavSquareWidget: FC<Props> = ({
 }) => {
   const { navigate } = useAppNavigate()
 
-  const handleClickArticle = () => navigate(path)
+  const handleClickArticle = () => navigate(path, {
+    state: { image }
+  })
 
   return (
     <motion.article

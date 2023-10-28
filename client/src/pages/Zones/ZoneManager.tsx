@@ -2,38 +2,90 @@ import cn from 'classnames'
 
 import { BackIcon } from '@/icons'
 import { useAppNavigate } from '@/hooks'
-import { Input, Textarea, Wave } from '@/components/lib'
-import { type FormEvent, useState } from 'react'
+import { Input, StatusBar, Textarea, Wave } from '@/components/lib'
+import { type FormEvent, useState, useEffect } from 'react'
 import { type ZoneInterface } from '@/types'
 import Alert from '@/components/lib/Alert'
 
 import folderImage from '@/assets/folder.png'
 import { useHideHeader } from '@/features/header/HeaderContext'
+import { useLocation, useParams } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import { api, apiFiles } from '@/services/api'
+import { buildUrl } from '@/constants/env'
+import FileInput from '@/components/lib/Uploader'
+import { getContrastColor } from '@/utils'
+import useZone from './useZone'
 
 type FormControlType = FormEvent<HTMLInputElement | HTMLTextAreaElement>
 
 export default function ZoneManager () {
   useHideHeader()
   const { navigate } = useAppNavigate()
-  const [userData, setUserData] = useState<Omit<ZoneInterface, 'id' | 'user_id'>>({
+  const { state } = useLocation()
+  const { zoneId } = useParams()
+  const { isSuccess, isLoading, error, postZone, putZone } = useZone()
+  const fetchZones = async () => await api<ZoneInterface>(buildUrl(`/zones/${zoneId}`))
+  const { data: zoneFetched } = useQuery({
+    queryKey: ['zones', zoneId],
+    queryFn: fetchZones,
+    enabled: !!zoneId
+  })
+  const [zoneData, setZoneData] = useState<Omit<ZoneInterface, 'id' | 'user_id'>>({
     name: '',
     notes: '',
     image: ''
   })
 
-  const handleClickBackButton = () => navigate('../')
-  const handleChange = (e: FormControlType) => setUserData({
-    ...userData,
+  useEffect(() => {
+    if (zoneFetched) {
+      setZoneData({
+        name: zoneFetched.name,
+        notes: zoneFetched.notes,
+        image: zoneFetched.image
+      })
+    }
+  }, [zoneFetched])
+
+  const handleClickBackButton = () => navigate(state?.previousPath ?? '/')
+  const handleChange = (e: FormControlType) => setZoneData({
+    ...zoneData,
     [e.currentTarget.name]: e.currentTarget.value
   })
-
   const handleSubmitZone = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('Zone sent')
+    if (zoneId) {
+      return putZone({
+        ...zoneData,
+        id: Number(zoneId)
+      })
+    }
+
+    return postZone({
+      ...zoneData
+    })
+  }
+  const handleChangeImage = (file: File) => {
+    const formData = new FormData()
+    formData.append('file', file)
+
+    return apiFiles<{ filename: string }>(
+      buildUrl('/files'),
+      {
+        method: 'POST',
+        body: formData
+      }
+    ).then(data => {
+      setZoneData({
+        ...zoneData,
+        image: data.filename
+      })
+    })
   }
 
   return (
     <>
+      <StatusBar color={zoneFetched?.color ?? '#2a7964'} />
       <button
         className="absolute top-4 left-4 z-50 mr-2 p-2"
         onClick={handleClickBackButton}
@@ -41,22 +93,20 @@ export default function ZoneManager () {
         <BackIcon width={26} height={26}/>
       </button>
       <main className='w-full h-full pt-[75px] px-4 pb-[100px] overflow-auto scroll-bar-hide relative'>
-        <Wave />
-        <section className="mb-4">
-          <div
-            className={cn(
-              'w-full h-[250px] center flex-col'
-            )}
-          >
-            <div className='z-10 border-4 border-[#81c784] aspect-square center flex-col p-10 rounded-full'>
-              <img
-                className='w-[120px]'
-                src={folderImage}
-                alt="Products"
-              />
-            </div>
-          </div>
-        </section>
+        <Wave firstColor={zoneFetched?.color ?? '#2a7964'} secondColor={zoneFetched?.color ?? '#2a7964'} />
+        <figure className={cn('relative w-full h-[220px] center flex-col')}>
+          <picture className=' group w-[200px] h-[200px] overflow-hidden center rounded-full'>
+            {zoneData?.image
+              ? <img className='w-full h-full object-cover' src={buildUrl(`/images/${zoneData.image}`)} />
+              : <img className='w-[120px]' src={folderImage} alt="Zone" />
+            }
+            <FileInput
+              className='group-hover:opacity-80 absolute opacity-0'
+              onChange={handleChangeImage}
+              acceptedExt={['image/png', 'image/jpeg', 'image/jpg']}
+            />
+          </picture>
+        </figure>
 
         <section className='mt-[80px]'>
           <form className='px-2' onSubmit={handleSubmitZone}>
@@ -65,7 +115,8 @@ export default function ZoneManager () {
               label='Name'
               name='name'
               className='mb-4'
-              value={''}
+              disabled={isLoading}
+              value={zoneData.name}
               onChange={handleChange}
             />
 
@@ -73,22 +124,33 @@ export default function ZoneManager () {
               id='notes'
               label='Full name'
               name='notes'
-              value={userData.name}
+              value={zoneData.notes ?? ''}
+              disabled={isLoading}
               className='mb-4'
               onChange={handleChange}
             />
 
-            {!!false && <Alert variant='danger' description={'error.message'} />}
-            {!!false && <Alert variant='success' description={'data.message'} />}
+            {!!error &&
+              <Alert
+                variant='danger'
+                description={error.message}
+              />
+              }
+            {!!isSuccess &&
+              <Alert
+                variant='success'
+                description={'Note saved successfully'}
+              />
+            }
 
             <button
-              className={cn(
-                'bg-red-400 text-white w-full rounded-md h-[50px] hover:bg-red-600',
-                'disabled:bg-red-300',
-                'center relative'
-              )}
+              className={cn('center relative w-full rounded-md h-[50px] font-bold text-lg')}
+              style={{
+                background: zoneFetched?.color ?? '#2a7964',
+                color: getContrastColor(zoneFetched?.color ?? '#2a7964')
+              }}
             >
-              <span>Update</span>
+              <span>Save</span>
             </button>
           </form>
         </section>
