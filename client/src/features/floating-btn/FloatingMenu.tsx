@@ -6,6 +6,7 @@ import { AddIcon } from '@/icons'
 import { type Children } from '@/types'
 import { useAppSelector } from '@/redux/hooks'
 import { getContrastColor } from '@/utils'
+import { StatusBar } from '@/components/lib'
 
 interface Props {
   children: Children
@@ -59,6 +60,8 @@ export const FloatingMenu: FC<Props> = ({ children }) => {
         </button>
         <AnimatePresence>
           {expanded &&
+          <>
+            <StatusBar color='#585858' />
             <motion.div
               initial="closed"
               animate="open"
@@ -72,6 +75,7 @@ export const FloatingMenu: FC<Props> = ({ children }) => {
             >
               {children}
             </motion.div>
+            </>
           }
         </AnimatePresence>
       </div>
