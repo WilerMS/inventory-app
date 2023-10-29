@@ -11,7 +11,7 @@ import { framerContainerVariant, framerItemVariant } from '@/constants/transitio
 import { useHeaderContext } from '@/features/header/HeaderContext'
 import { useEffect, useState } from 'react'
 import { FloatingItem, FloatingMenu } from '@/features/floating-btn'
-import { SearchIcon } from '@/icons'
+import { ZoneIcon } from '@/icons'
 import { getContrastColor } from '@/utils'
 
 export default function Zones () {
@@ -36,7 +36,7 @@ export default function Zones () {
       <FloatingMenu>
         <FloatingItem
           to='/zones/create'
-          icon={<SearchIcon />}
+          icon={<ZoneIcon />}
           title='New Zone'
         />
       </FloatingMenu>

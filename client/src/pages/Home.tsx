@@ -5,7 +5,7 @@ import elipsisImage from '@/assets/elipsis.png'
 import cn from 'classnames'
 import NavSquareWidget from '@/components/NavSquareWidget'
 import { FloatingItem, FloatingMenu } from '@/features/floating-btn'
-import { SearchIcon } from '@/icons'
+import { FoodIcon, ZoneIcon } from '@/icons'
 
 export default function Home () {
   return (
@@ -13,12 +13,12 @@ export default function Home () {
       <FloatingMenu>
         <FloatingItem
           to='/zones/create'
-          icon={<SearchIcon />}
+          icon={<ZoneIcon />}
           title='New Zone'
         />
         <FloatingItem
           to='/products/create'
-          icon={<SearchIcon />}
+          icon={<FoodIcon />}
           title='New Product'
         />
       </FloatingMenu>
