@@ -23,7 +23,7 @@ CREATE TABLE products(
   id int PRIMARY KEY AUTO_INCREMENT,
   name varchar(20) NOT NULL,
   image varchar(200),
-  amount int,
+  amount int DEFAULT 0,
   expiration_date DATE,
   price int,
   notes varchar(200),
