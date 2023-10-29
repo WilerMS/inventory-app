@@ -16,13 +16,13 @@ export class Product extends Model {
   id!: number
   name!: string
   amount!: number
-  image?: string
-  color?: string
+  image?: string | null
+  color?: string | null
   user_id!: number
   zone_id!: number
-  expiration_date?: string
-  price?: number
-  notes?: string
+  expiration_date?: string | null
+  price?: number | null
+  notes?: string | null
 
   zone?: Zone
   user?: User
@@ -33,13 +33,13 @@ export class Product extends Model {
     properties: {
       id: { type: 'number' },
       name: { type: 'string' },
-      image: { type: 'string' },
-      amount: { type: 'string' },
+      image: { type: ['string', 'null'] },
+      amount: { type: 'number' },
       user_id: { type: 'number' },
       zone_id: { type: 'number' },
-      expiration_date: { type: 'string' },
-      price: { type: 'number' },
-      notes: { type: 'string' }
+      expiration_date: { type: ['string', 'null'] },
+      price: { type: ['number', 'null'] },
+      notes: { type: ['string', 'null'] }
     }
   }
 
@@ -67,6 +67,10 @@ export class Product extends Model {
     }
   }
 
+  getFormatedDate () {
+    this.expiration_date = this.expiration_date ? new Date(this.expiration_date).toISOString().slice(0, 10) : this.expiration_date
+  }
+
   async getZoneColor () {
     if (this.image) {
       this.color = await getPredominantColor(path.resolve(__dirname, '..', '..', 'public/images', this.image))
@@ -74,6 +78,7 @@ export class Product extends Model {
   }
 
   async $afterFind () {
-    return await this.getZoneColor()
+    await this.getZoneColor()
+    this.getFormatedDate()
   }
 }
