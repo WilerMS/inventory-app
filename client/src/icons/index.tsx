@@ -91,6 +91,24 @@ export const AddIcon: FC<IconProps> = ({ height = '1em', width = '1em', color = 
   </svg>
 )
 
+export const MinusIcon: FC<IconProps> = ({ height = '1em', width = '1em', color = '#000000', ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    fill="none"
+    strokeWidth="2"
+    stroke={color ?? 'currentColor'}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M5 12l14 0"></path>
+  </svg>
+)
+
 export const DeleteIcon: FC<IconProps> = ({ height = '1em', width = '1em', color = '#000000', ...props }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
