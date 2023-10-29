@@ -2,6 +2,8 @@ import { motion } from 'framer-motion'
 import { useLocation, useParams } from 'react-router-dom'
 
 import folderImage from '@/assets/folder.png'
+import productsImage from '@/assets/products-2.png'
+
 import { framerContainerVariant } from '@/constants/transition'
 import { api } from '@/services/api'
 import { useQuery } from '@tanstack/react-query'
@@ -70,8 +72,9 @@ export default function Zone () {
               >
                 {zoneFetched.products?.map((product) => (
                   <ProductItem
-                    key={product.id}
                     {...product}
+                    key={product.id}
+                    image={product.image ? buildUrl(`/images/${product.image}`) : productsImage}
                   />
                 ))}
               </motion.div>
