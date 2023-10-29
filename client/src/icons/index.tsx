@@ -226,3 +226,45 @@ export const PenIcon: FC<IconProps> = ({ height = '1em', width = '1em', color = 
     <path d="M13.5 6.5l4 4"></path>
   </svg>
 )
+
+export const FoodIcon: FC<IconProps> = ({ height = '1em', width = '1em', color = '#1C274C', ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    fill="none"
+    strokeWidth="2"
+    stroke={color ?? 'currentColor'}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M13.62 8.382l1.966 -1.967a2 2 0 1 1 3.414 -1.415a2 2 0 1 1 -1.413 3.414l-1.82 1.821"></path>
+    <path d="M5.904 18.596c2.733 2.734 5.9 4 7.07 2.829c1.172 -1.172 -.094 -4.338 -2.828 -7.071c-2.733 -2.734 -5.9 -4 -7.07 -2.829c-1.172 1.172 .094 4.338 2.828 7.071z"></path>
+    <path d="M7.5 16l1 1"></path>
+    <path d="M12.975 21.425c3.905 -3.906 4.855 -9.288 2.121 -12.021c-2.733 -2.734 -8.115 -1.784 -12.02 2.121"></path>
+  </svg>
+)
+
+export const ZoneIcon: FC<IconProps> = ({ height = '1em', width = '1em', color = '#1C274C', ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    fill="none"
+    strokeWidth="2"
+    stroke={color ?? 'currentColor'}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z"></path>
+    <path d="M5 10h14"></path>
+    <path d="M9 13v3"></path>
+    <path d="M9 6v1"></path>
+  </svg>
+)
