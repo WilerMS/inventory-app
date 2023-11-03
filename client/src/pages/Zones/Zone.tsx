@@ -33,7 +33,7 @@ export default function Zone () {
         />
       </FloatingMenu>
       <main className='w-full h-full pt-[75px] px-4 pb-[100px] overflow-auto scroll-bar-hide relative'>
-      <figure className='relative w-full h-[220px] center flex-col mt-4 mb-3'>
+        <figure className='relative w-full h-[220px] center flex-col mt-4 mb-3'>
           <picture
             className=' group w-[200px] h-[200px] overflow-hidden center rounded-full'
             style={{

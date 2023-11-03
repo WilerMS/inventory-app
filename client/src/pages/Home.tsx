@@ -55,7 +55,7 @@ export default function Home () {
               imgTransitionName='storage-image'
             />
 
-            <NavSquareWidget
+            {/* <NavSquareWidget
               title='Shopping list'
               image={shoppingImage}
               path='/shopping-list'
@@ -70,7 +70,7 @@ export default function Home () {
               path='/shopping-list'
               imageAlt='Coming soon'
               className='bg-gradient-to-b from-gray-100 to-gray-200 opacity-40 hover:scale-100'
-            />
+            /> */}
 
           </div>
         </section>

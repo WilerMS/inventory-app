@@ -26,8 +26,7 @@ export const login: RequestHandler = async (req, res) => {
 
   const token = jwt.sign(
     { id: user.id, username: user.username },
-    JWT_SECRET,
-    { expiresIn: '2h' }
+    JWT_SECRET
   )
 
   return res.json({ message: 'Login success', token, user: user.toResponse() })

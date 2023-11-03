@@ -38,13 +38,14 @@ export default function App () {
               <Route key='register' path='/register' element={<Register />} />
 
               <Route key='home' path='/' element={<Protect component={Home} />} />
+              <Route key='product' path='/products/create' element={<Protect component={Product} />} />
               <Route key='product' path='/products/:productId' element={<Protect component={Product} />} />
               <Route key='products' path='/products' element={<Protect component={Products} />} />
               <Route key='profile' path='/profile' element={<Protect component={Profile} />} />
               <Route key='zone' path='/zones/:zoneId' element={<Protect component={Zone} />} />
               <Route key='zones' path='/zones' element={<Protect component={Zones} />} />
-              <Route key='zones' path='/zones/:zoneId/edit' element={<Protect component={ZoneManager} />} />
               <Route key='zones' path='/zones/create' element={<Protect component={ZoneManager} />} />
+              <Route key='zones' path='/zones/:zoneId/edit' element={<Protect component={ZoneManager} />} />
               <Route key='shopping-list' path='/shopping-list' element={<Protect component={Shopping} />} />
 
               <Route key='notfound' path='*' element={<NotFound />} />

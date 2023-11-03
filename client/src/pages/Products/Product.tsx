@@ -113,7 +113,7 @@ export default function Product () {
       >
         <BackIcon width={26} height={26} color={getContrastColor(productFetched?.color ?? '#00000')} />
       </button>
-      <main className='w-full h-full pt-[75px] px-4 pb-[100px] overflow-auto scroll-bar-hide relative'>
+      <main className='w-full h-full pt-[75px] px-4 pb-[100px] overflow-x-hidden scroll-bar-hide relative'>
         <Wave firstColor={productFetched?.color ?? '#2a7964'} secondColor={productFetched?.color ?? '#2a7964'} />
         <figure className={cn('relative w-full h-[220px] center flex-col')}>
           <picture className=' group w-[200px] h-[200px] overflow-hidden center rounded-full'>

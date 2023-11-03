@@ -91,7 +91,7 @@ export default function ZoneManager () {
       >
         <BackIcon width={26} height={26} color={getContrastColor(zoneFetched?.color ?? '#00000')} />
       </button>
-      <main className='w-full h-full pt-[75px] px-4 pb-[100px] overflow-auto scroll-bar-hide relative'>
+      <main className='w-full h-full pt-[75px] px-4 pb-[100px] overflow-x-hidden scroll-bar-hide relative'>
         <Wave firstColor={zoneFetched?.color ?? '#2a7964'} secondColor={zoneFetched?.color ?? '#2a7964'} />
         <figure className={cn('relative w-full h-[220px] center flex-col')}>
           <picture className=' group w-[200px] h-[200px] overflow-hidden center rounded-full'>
@@ -121,7 +121,7 @@ export default function ZoneManager () {
 
             <Textarea
               id='notes'
-              label='Full name'
+              label='Notes'
               name='notes'
               value={zoneData.notes ?? ''}
               disabled={isLoading}
@@ -129,18 +129,8 @@ export default function ZoneManager () {
               onChange={handleChange}
             />
 
-            {!!error &&
-              <Alert
-                variant='danger'
-                description={error.message}
-              />
-              }
-            {!!isSuccess &&
-              <Alert
-                variant='success'
-                description={'Note saved successfully'}
-              />
-            }
+            {!!error && <Alert variant='danger' description={error.message} />}
+            {!!isSuccess && <Alert variant='success' description={'Note saved successfully'} />}
 
             <button
               className={cn('center relative w-full rounded-md h-[50px] font-bold text-lg')}
