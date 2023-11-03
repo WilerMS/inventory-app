@@ -12,6 +12,7 @@ import { useHeaderContext } from '@/features/header/HeaderContext'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { api } from '@/services/api'
+import folderImage from '@/assets/folder.png'
 
 export default function Products () {
   const { setSearchEvent } = useHeaderContext()
@@ -72,7 +73,7 @@ export default function Products () {
                 <ProductItem
                   {...product}
                   key={product.id}
-                  image={product.image ? buildUrl(`/images/${product.image}`) : productsImage}
+                  image={product.image ? buildUrl(`/images/${product.image}`) : folderImage}
                 />
               ))}
             </motion.div>

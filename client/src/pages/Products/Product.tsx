@@ -143,8 +143,8 @@ export default function Product () {
 
             <Amount
               id='amount'
-              bgcolor={productFetched?.color}
-              textcolor={getContrastColor(productFetched?.color ?? '#00000')}
+              bgcolor={productFetched?.color ?? '#2a7964'}
+              textcolor={getContrastColor(productFetched?.color ?? '#2a7964')}
               label='Amount'
               value={productData.amount}
               onChange={handleChangeAmount}
