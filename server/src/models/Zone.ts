@@ -66,7 +66,17 @@ export class Zone extends Model {
     }
   }
 
-  async $afterFind () {
-    return await this.getZoneColor()
+  async calculateColor () {
+    if (this.image) {
+      this.color = await getPredominantColor(path.resolve(__dirname, '..', '..', 'public/images', this.image))
+    }
+  }
+
+  async $beforeInsert () {
+    await this.calculateColor()
+  }
+
+  async $beforeUpdate () {
+    await this.calculateColor()
   }
 }

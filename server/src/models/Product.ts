@@ -71,14 +71,21 @@ export class Product extends Model {
     this.expiration_date = this.expiration_date ? new Date(this.expiration_date).toISOString().slice(0, 10) : this.expiration_date
   }
 
-  async getZoneColor () {
+  async $afterFind () {
+    this.getFormatedDate()
+  }
+
+  async calculateColor () {
     if (this.image) {
       this.color = await getPredominantColor(path.resolve(__dirname, '..', '..', 'public/images', this.image))
     }
   }
 
-  async $afterFind () {
-    await this.getZoneColor()
-    this.getFormatedDate()
+  async $beforeInsert () {
+    await this.calculateColor()
+  }
+
+  async $beforeUpdate () {
+    await this.calculateColor()
   }
 }

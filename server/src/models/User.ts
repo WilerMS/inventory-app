@@ -91,12 +91,6 @@ export class User extends Model {
     return this.birth_date ? new Date(this.birth_date).toISOString().slice(0, 10) : undefined
   }
 
-  async getProfileColor () {
-    if (this.image) {
-      this.color = await getPredominantColor(path.resolve(__dirname, '..', '..', 'public/images', this.image))
-    }
-  }
-
   toResponse (): User {
     return {
       ...this,
@@ -105,7 +99,17 @@ export class User extends Model {
     } satisfies User
   }
 
-  async $afterFind () {
-    return await this.getProfileColor()
+  async calculateColor () {
+    if (this.image) {
+      this.color = await getPredominantColor(path.resolve(__dirname, '..', '..', 'public/images', this.image))
+    }
+  }
+
+  async $beforeInsert () {
+    await this.calculateColor()
+  }
+
+  async $beforeUpdate () {
+    await this.calculateColor()
   }
 }
