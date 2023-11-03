@@ -1,5 +1,5 @@
 import { type FC } from 'react'
-import { Helmet } from 'react-helmet'
+import { Meta } from 'react-meta-elements'
 
 interface Props {
   color: `#${string}`
@@ -7,11 +7,11 @@ interface Props {
 
 const StatusBar: FC<Props> = ({ color }) => {
   return (
-    <Helmet>
-      <meta name="theme-color" content={color} />
-      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-    </Helmet>
+    <>
+      <Meta name="theme-color" content={color} />
+      <Meta name="apple-mobile-web-app-status-bar-style" content={color} />
+      <Meta name="apple-mobile-web-app-capable" content={color} />
+    </>
   )
 }
 
