@@ -45,7 +45,7 @@ export default function Login () {
             'rounded-full shadow-xl shadow-[#0000000c]'
           )}
         >
-          <img className='w-1/2' src={logo} alt="Inventory app logo" />
+          <img width={80} height={80} src={logo} alt="Inventory app logo" />
         </div>
       </div>
 
@@ -101,8 +101,8 @@ export default function Login () {
 
           <button
             className={classNames(
-              'bg-blue-500 text-white w-full rounded-md h-[50px] hover:bg-blue-600',
-              'disabled:bg-blue-300',
+              'bg-blue-600 text-white w-full rounded-md h-[50px] hover:bg-blue-700',
+              'disabled:bg-blue-300 font-bold',
               'center relative'
             )}
             disabled={isLoading}
