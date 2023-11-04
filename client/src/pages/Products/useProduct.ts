@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/services/api'
 import { buildUrl } from '@/constants/env'
 import { type ProductInterface } from '@/types'
@@ -10,6 +10,7 @@ interface MutationErrorType {
 }
 
 const useProduct = () => {
+  const queryClient = useQueryClient()
   const [error, setError] = useState<MutationErrorType>()
 
   const postProductRequest = useCallback((productData: Omit<ProductInterface, 'id' | 'user_id'>) => {
@@ -39,6 +40,7 @@ const useProduct = () => {
     mutationFn: postProductRequest,
     onSuccess: (data) => {
       console.log({ data })
+      queryClient.invalidateQueries(['zones', `${data.zone_id}`])
     },
     onError: setError
   })
@@ -47,6 +49,7 @@ const useProduct = () => {
     mutationFn: putProductRequest,
     onSuccess: (data) => {
       console.log({ data })
+      queryClient.invalidateQueries(['zones'])
     },
     onError: setError
   })

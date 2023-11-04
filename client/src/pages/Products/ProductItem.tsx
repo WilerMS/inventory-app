@@ -1,6 +1,4 @@
-import { framerItemVariant } from '@/constants/transition'
 import cn from 'classnames'
-import { motion } from 'framer-motion'
 import productsImage from '@/assets/products-2.png'
 import { type ProductInterface } from '@/types'
 import { type FC } from 'react'
@@ -22,9 +20,8 @@ const ProductItem: FC<Props> = ({
   const handleClickProduct = () => navigate(`/products/${id}`)
 
   return (
-    <motion.article
+    <article
       onClick={handleClickProduct}
-      variants={framerItemVariant}
       className={cn(
         'w-full pl-4 pr-2 py-4 relative aspect-[5] shadow border border-gray-100 rounded-2xl cursor-pointer',
         'flex items-center'
@@ -54,7 +51,7 @@ const ProductItem: FC<Props> = ({
         <span className='font-bold'>{amount}</span>
         <span className='text-xs'>units</span>
       </button>
-    </motion.article>
+    </article>
   )
 }
 

@@ -1,10 +1,8 @@
 import cn from 'classnames'
-import { motion } from 'framer-motion'
 
 import productsImage from '@/assets/products-2.png'
 import { FloatingItem, FloatingMenu } from '@/features/floating-btn'
 import { FoodIcon } from '@/icons'
-import { framerContainerVariant } from '@/constants/transition'
 import ProductItem from './ProductItem'
 import { type ProductInterface } from '@/types'
 import { buildUrl } from '@/constants/env'
@@ -63,12 +61,7 @@ export default function Products () {
         <section>
           <h3 className="text-xl ml-1 mb-2 font-bold">Products</h3>
           {!!data &&
-            <motion.div
-              className="w-full grid grid-cols-1 gap-4"
-              variants={framerContainerVariant}
-              initial="hidden"
-              animate="show"
-            >
+            <div className="w-full grid grid-cols-1 gap-4">
               {products?.map((product) => (
                 <ProductItem
                   {...product}
@@ -76,7 +69,7 @@ export default function Products () {
                   image={product.image ? buildUrl(`/images/${product.image}`) : folderImage}
                 />
               ))}
-            </motion.div>
+            </div>
           }
         </section>
       </main>

@@ -17,7 +17,7 @@ export const getImageAverageColor = (imageUrl: string): Promise<`#${string}`> =>
       const img = document.createElement('img')
       img.crossOrigin = 'Anonymous'
       img.src = imageUrl
-      img.onload = (e) => {
+      img.onload = () => {
         const canvas = document.createElement('canvas')
         const context = canvas.getContext('2d') as CanvasRenderingContext2D
 
@@ -47,7 +47,7 @@ export const getImageAverageColor = (imageUrl: string): Promise<`#${string}`> =>
         catchedImagesAverageColors[imageUrl] = averageColor
         resolve(averageColor)
       }
-      img.onerror = (e) => {
+      img.onerror = () => {
         reject(new Error('Failed to load image, possibly due to CORS restrictions.'))
       }
     } else {

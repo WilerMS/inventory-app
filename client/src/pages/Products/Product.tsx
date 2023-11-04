@@ -4,7 +4,7 @@ import { BackIcon } from '@/icons'
 import { useAppNavigate } from '@/hooks'
 import { Input, StatusBar, Textarea, Wave } from '@/components/lib'
 import { type FormEvent, useState, useEffect } from 'react'
-import { type ProductInterface } from '@/types'
+import { type ZoneInterface, type ProductInterface } from '@/types'
 import Alert from '@/components/lib/Alert'
 
 import folderImage from '@/assets/folder.png'
@@ -17,8 +17,9 @@ import FileInput from '@/components/lib/Uploader'
 import { getContrastColor, getCurrentDate } from '@/utils'
 import useProduct from './useProduct'
 import Amount from '@/components/lib/Amount'
+import Select from '@/components/lib/Select'
 
-type FormControlType = FormEvent<HTMLInputElement | HTMLTextAreaElement>
+type FormControlType = FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 
 export default function Product () {
   useHideHeader()
@@ -27,12 +28,15 @@ export default function Product () {
   const { isSuccess, isLoading, error, postProduct, putProduct } = useProduct()
 
   /* fetch current product data */
-  const fetchZones = async () => await api<ProductInterface>(buildUrl(`/products/${productId}`))
+  const fetchProduct = async () => await api<ProductInterface>(buildUrl(`/products/${productId}`))
   const { data: productFetched } = useQuery({
     queryKey: ['products', productId],
-    queryFn: fetchZones,
+    queryFn: fetchProduct,
     enabled: !!productId
   })
+
+  const fetchZones = () => api<ZoneInterface[]>(buildUrl('/zones'))
+  const { data: zones } = useQuery({ queryKey: ['zones'], queryFn: fetchZones })
 
   const [productData, setProductData] = useState<Omit<ProductInterface, 'id' | 'user_id'>>({
     name: '',
@@ -63,7 +67,7 @@ export default function Product () {
     ...productData,
     [e.currentTarget.name]: e.currentTarget.value
   })
-  const handleChangePrice = (e: FormControlType) => setProductData({
+  const handleChangeNumber = (e: FormControlType) => setProductData({
     ...productData,
     [e.currentTarget.name]: Number(e.currentTarget.value)
   })
@@ -141,6 +145,17 @@ export default function Product () {
               onChange={handleChange}
             />
 
+            <Select
+              id='zone_id'
+              label='Zone'
+              name='zone_id'
+              className='mb-4'
+              disabled={isLoading}
+              value={productData.zone_id}
+              onChange={handleChangeNumber}
+              options={zones?.map(zone => ({ label: zone.name, value: zone.id })) ?? []}
+            />
+
             <Amount
               id='amount'
               bgcolor={productFetched?.color ?? '#2a7964'}
@@ -159,7 +174,7 @@ export default function Product () {
               disabled={isLoading}
               value={productData.price}
               pattern='\d*'
-              onChange={handleChangePrice}
+              onChange={handleChangeNumber}
             />
 
             <Textarea

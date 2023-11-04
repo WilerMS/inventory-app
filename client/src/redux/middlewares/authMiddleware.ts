@@ -1,7 +1,7 @@
 import { type PayloadAction, type Middleware } from '@reduxjs/toolkit'
 import { type AuthState, loginSuccess, logoutAction, AUTH_STORAGE_KEY, modifyUserAction } from '../features/authReducer'
 
-export const authMiddleware: Middleware = ({ dispatch }) => (next) => (action: PayloadAction<Omit<AuthState, 'isAuthenticated'>>) => {
+export const authMiddleware: Middleware = ({ dispatch: _ }) => (next) => (action: PayloadAction<Omit<AuthState, 'isAuthenticated'>>) => {
   if (action.type === loginSuccess.type) {
     const { user, token } = action.payload
     localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ user, token }))

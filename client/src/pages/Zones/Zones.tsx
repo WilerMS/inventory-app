@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { motion } from 'framer-motion'
 
 import storageImage from '@/assets/product-cart.png'
 import folderImage from '@/assets/folder.png'
@@ -7,7 +6,6 @@ import NavSquareWidget from '@/components/NavSquareWidget'
 import { api } from '@/services/api'
 import { type ZoneInterface } from '@/types'
 import { buildUrl } from '@/constants/env'
-import { framerContainerVariant, framerItemVariant } from '@/constants/transition'
 import { useHeaderContext } from '@/features/header/HeaderContext'
 import { useEffect, useState } from 'react'
 import { FloatingItem, FloatingMenu } from '@/features/floating-btn'
@@ -59,15 +57,9 @@ export default function Zones () {
         <section>
           <h3 className="text-xl ml-1 mb-2 font-bold">Storage areas</h3>
           {!!data &&
-            <motion.div
-              className="w-full grid grid-cols-2 gap-4"
-              variants={framerContainerVariant}
-              initial="hidden"
-              animate="show"
-            >
+            <div className="w-full grid grid-cols-2 gap-4">
               {zones?.map((zone) => (
                 <NavSquareWidget
-                  variants={framerItemVariant}
                   key={zone.id}
                   title={zone.name}
                   image={zone.image ? buildUrl(`/images/${zone.image}`) : folderImage}
@@ -82,7 +74,7 @@ export default function Zones () {
                 />
               ))}
 
-            </motion.div>
+            </div>
           }
         </section>
       </main>

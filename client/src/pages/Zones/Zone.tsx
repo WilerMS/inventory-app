@@ -1,10 +1,8 @@
-import { motion } from 'framer-motion'
 import { useLocation, useParams } from 'react-router-dom'
 
 import folderImage from '@/assets/folder.png'
 import productsImage from '@/assets/products-2.png'
 
-import { framerContainerVariant } from '@/constants/transition'
 import { api } from '@/services/api'
 import { useQuery } from '@tanstack/react-query'
 import { buildUrl } from '@/constants/env'
@@ -57,19 +55,11 @@ export default function Zone () {
               <PenIcon className='text-2xl' color='#fff' />
             </LinkButton>
           </div>
-          <motion.div
+          <div
             className="w-full grid grid-cols-1 gap-4"
-            variants={framerContainerVariant}
-            initial="hidden"
-            animate="show"
           >
             {!!zoneFetched &&
-              <motion.div
-                className="w-full grid grid-cols-1 gap-4"
-                variants={framerContainerVariant}
-                initial="hidden"
-                animate="show"
-              >
+              <div className="w-full grid grid-cols-1 gap-4">
                 {zoneFetched.products?.map((product) => (
                   <ProductItem
                     {...product}
@@ -77,10 +67,10 @@ export default function Zone () {
                     image={product.image ? buildUrl(`/images/${product.image}`) : productsImage}
                   />
                 ))}
-              </motion.div>
+              </div>
             }
 
-          </motion.div>
+          </div>
         </section>
 
       </main>
