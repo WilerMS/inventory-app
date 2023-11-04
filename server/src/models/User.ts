@@ -10,7 +10,7 @@ interface ZoneType { Zone: typeof Zone }
 interface ProductType { Product: typeof Product }
 
 export class User extends Model {
-  static tableName: string = 'users'
+  static tableName: string = 'users_inventory'
   static idColumn: string | string[] = 'id'
 
   id!: number
@@ -72,7 +72,7 @@ export class User extends Model {
         relation: Model.HasManyRelation,
         modelClass: Zone,
         join: {
-          from: 'user.id',
+          from: 'users_inventory.id',
           to: 'zones.user_id'
         }
       },
@@ -80,7 +80,7 @@ export class User extends Model {
         relation: Model.HasManyRelation,
         modelClass: Product,
         join: {
-          from: 'user.id',
+          from: 'users_inventory.id',
           to: 'products.user_id'
         }
       }

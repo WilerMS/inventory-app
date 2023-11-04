@@ -54,7 +54,7 @@ export class Zone extends Model {
         modelClass: User,
         join: {
           from: 'zones.user_id',
-          to: 'users.id'
+          to: 'users_inventory.id'
         }
       }
     }

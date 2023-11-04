@@ -61,7 +61,7 @@ export class Product extends Model {
         modelClass: User,
         join: {
           from: 'products.user_id',
-          to: 'users.id'
+          to: 'users_inventory.id'
         }
       }
     }
