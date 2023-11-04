@@ -25,7 +25,7 @@ const HeaderContext = createContext<HeaderContextProps | undefined>(undefined)
 export const HeaderProvider: FC<Props> = ({ children }) => {
   const [isHidden, setIsHidden] = useState(false)
   const [searchEvent, setSetSearchEvent] = useState(() => {
-    return (value: string) => {}
+    return () => {}
   })
 
   const hideHeader = () => setIsHidden(true)

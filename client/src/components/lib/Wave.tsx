@@ -1,6 +1,5 @@
 import { type FC } from 'react'
 import cn from 'classnames'
-import { motion, type HTMLMotionProps } from 'framer-motion'
 
 export const transition = {
   initial: {
@@ -16,7 +15,7 @@ export const transition = {
   }
 }
 
-interface Props extends HTMLMotionProps<'div'> {
+interface Props {
   firstColor: string
   secondColor: string
 }
@@ -27,10 +26,7 @@ const Wave: FC<Props> = ({
   ...props
 }) => {
   return (
-    <motion.div
-      initial="initial"
-      animate="in"
-      variants={transition}
+    <div
       className={cn(
         'w-full h-[350px] absolute left-0 top-0 rounded-b-[100px]'
       )}
@@ -39,7 +35,7 @@ const Wave: FC<Props> = ({
       }}
       {...props}
     >
-    </motion.div>
+    </div>
   )
 }
 

@@ -11,7 +11,7 @@ interface FileInputProps {
 const FileInput: React.FC<FileInputProps> = ({
   className,
   acceptedExt = [],
-  onChange = (file) => {}
+  onChange = () => {}
 }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 

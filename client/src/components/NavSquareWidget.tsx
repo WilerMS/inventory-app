@@ -1,10 +1,9 @@
 import { type CSSProperties, type FC } from 'react'
 import cn from 'classnames'
-import { type AnimationProps, motion } from 'framer-motion'
 
 import { useAppNavigate } from '@/hooks/useAppNavigate'
 
-interface Props extends AnimationProps {
+interface Props {
   title: string
   image: string
   path: `/${string}`
@@ -30,7 +29,7 @@ const NavSquareWidget: FC<Props> = ({
   })
 
   return (
-    <motion.article
+    <article
       onClick={handleClickArticle}
       className={cn(
         'w-full relative aspect-square shadow rounded-2xl center cursor-pointer',
@@ -51,7 +50,7 @@ const NavSquareWidget: FC<Props> = ({
       <div className='absolute h-1/4 bottom-0'>
         <h4 className='text-lg font-bold'>{title}</h4>
       </div>
-    </motion.article>
+    </article>
   )
 }
 

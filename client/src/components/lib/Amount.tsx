@@ -15,19 +15,14 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 
 const Amount: FC<Props> = ({
   label,
-  type,
   id,
   name,
   className,
-  wrapperClass,
-  placeholder,
-  wrapperStyle,
   bgcolor = '#2a7964',
   textcolor = '#fff',
   disabled,
   value,
-  onChange,
-  ...props
+  onChange
 }) => {
   const handleIncrease = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -40,7 +35,7 @@ const Amount: FC<Props> = ({
   }
 
   return (
-    <div className={cn('relative mb-4', wrapperClass)}>
+    <div className={cn('relative mb-4', className)}>
       <label
         htmlFor={id}
         className="block text-sm font-medium text-gray-600"
@@ -73,6 +68,7 @@ const Amount: FC<Props> = ({
           value={value}
           className='text-center outline-none'
           pattern="\d*"
+          name={name}
           readOnly
         />
 

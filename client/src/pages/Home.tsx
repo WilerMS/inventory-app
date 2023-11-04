@@ -1,7 +1,5 @@
 import productsImage from '@/assets/products-2.png'
 import storageImage from '@/assets/product-cart.png'
-import shoppingImage from '@/assets/list.png'
-import elipsisImage from '@/assets/elipsis.png'
 import cn from 'classnames'
 import NavSquareWidget from '@/components/NavSquareWidget'
 import { FloatingItem, FloatingMenu } from '@/features/floating-btn'
