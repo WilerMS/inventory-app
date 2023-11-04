@@ -6,5 +6,5 @@ import ViteMkcert from 'vite-plugin-mkcert';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), tsconfigPaths(), VitePWA()],
+  plugins: [react(), tsconfigPaths(), VitePWA()/* , ViteMkcert() */],
 })
