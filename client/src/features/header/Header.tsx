@@ -40,6 +40,7 @@ export const Header = () => {
       >
         {pathname !== '/' &&
           <button
+            aria-label="Go back"
             className="mr-2 p-2 rounded-full active:bg-gray-200 transition-all"
             onClick={handleClickBackButton}
           >
@@ -51,6 +52,7 @@ export const Header = () => {
 
         {pathname !== '/profile' &&
           <button
+            aria-label="Go to profile"
             className="center ml-4 w-[35px] h-[35px] rounded-full bg-gray-100 overflow-hidden"
             onClick={handleClickUserButton}
             style={{

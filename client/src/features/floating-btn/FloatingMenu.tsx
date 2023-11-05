@@ -29,6 +29,7 @@ export const FloatingMenu: FC<Props> = ({ children }) => {
       }
       <div className={cn('absolute bottom-10 right-6 z-50')}>
         <button
+          aria-label='Expand menu'
           onClick={handleToggleExpand}
           className={cn('w-[60px] h-[60px] rounded-full center shadow-md ')}
           style={{

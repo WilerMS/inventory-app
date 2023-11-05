@@ -112,6 +112,7 @@ export default function Product () {
     <>
       <StatusBar color={productFetched?.color ?? '#2a7964'} />
       <button
+        aria-label='Go back'
         className="absolute top-4 left-4 z-50 mr-2 p-2"
         onClick={handleClickBackButton}
       >
@@ -212,6 +213,7 @@ export default function Product () {
             }
 
             <button
+              aria-label='Save product'
               className={cn('center relative w-full rounded-md h-[50px] font-bold text-lg')}
               style={{
                 background: productFetched?.color ?? '#2a7964',

@@ -49,6 +49,7 @@ const Amount: FC<Props> = ({
         )}
       >
         <button
+          aria-label="decrease amount"
           disabled={disabled ?? Number(value) <= 0}
           onClick={handleDecrease}
           className={cn(
@@ -73,6 +74,7 @@ const Amount: FC<Props> = ({
         />
 
         <button
+          aria-label="increase amount"
           disabled={disabled}
           onClick={handleIncrease}
           className={cn(

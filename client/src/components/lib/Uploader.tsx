@@ -36,6 +36,7 @@ const FileInput: React.FC<FileInputProps> = ({
         onChange={handleFileChange}
       />
       <button
+        aria-label={'Upload file'}
         className="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center"
         onClick={() => fileInputRef.current?.click()}
       >

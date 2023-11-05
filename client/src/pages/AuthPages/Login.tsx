@@ -100,6 +100,7 @@ export default function Login () {
           }
 
           <button
+            aria-label='Login'
             className={classNames(
               'bg-blue-600 text-white w-full rounded-md h-[50px] hover:bg-blue-700',
               'disabled:bg-blue-300 font-bold',

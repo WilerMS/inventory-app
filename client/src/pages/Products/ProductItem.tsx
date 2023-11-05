@@ -43,6 +43,7 @@ const ProductItem: FC<Props> = ({
         </p>
       </div>
       <button
+        aria-label='Product units'
         className={cn(
           'text-black flex-shrink-0 w-[40px] h-[40px] rounded-full',
           'center  flex-col'

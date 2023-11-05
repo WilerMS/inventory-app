@@ -86,6 +86,7 @@ export default function ZoneManager () {
     <>
       <StatusBar color={zoneFetched?.color ?? '#2a7964'} />
       <button
+        aria-label='Go back'
         className="absolute top-4 left-4 z-50 mr-2 p-2"
         onClick={handleClickBackButton}
       >
@@ -133,6 +134,7 @@ export default function ZoneManager () {
             {!!isSuccess && <Alert variant='success' description={'Note saved successfully'} />}
 
             <button
+              aria-label='Save Zone'
               className={cn('center relative w-full rounded-md h-[50px] font-bold text-lg')}
               style={{
                 background: zoneFetched?.color ?? '#2a7964',

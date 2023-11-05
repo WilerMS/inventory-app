@@ -50,6 +50,7 @@ const DualSwitch: FC<Props> = ({
       </label>
       <div id={id} className="w-full mt-1 border border-gray-300 rounded-md flex overflow-hidden">
         <button
+          aria-label={`Option ${option1}`}
           disabled={disabled}
           onClick={handleClickFirstOption}
           className={cn(
@@ -64,6 +65,7 @@ const DualSwitch: FC<Props> = ({
           {option1}
         </button>
         <button
+          aria-label={`Option ${option2}`}
           disabled={disabled}
           onClick={handleClickSecondOption}
           className={cn(

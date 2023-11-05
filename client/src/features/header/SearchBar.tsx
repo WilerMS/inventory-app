@@ -30,7 +30,11 @@ const SearchBar: FC<Props> = ({
         value={value}
         onChange={handleChange}
       />
-      <button className="mr-1" onClick={handleFocusSearchBar}>
+      <button
+        aria-label='Search'
+        className="mr-1"
+        onClick={handleFocusSearchBar}
+      >
         <SearchIcon width={20} height={20} />
       </button>
     </div>

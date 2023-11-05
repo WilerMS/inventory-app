@@ -148,6 +148,7 @@ export default function Register () {
           }
 
           <button
+            aria-label='Register'
             className={classNames(
               'bg-blue-500 text-white w-full rounded-md h-[50px] hover:bg-blue-600',
               'disabled:bg-blue-300',

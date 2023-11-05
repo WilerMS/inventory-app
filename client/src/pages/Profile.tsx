@@ -66,6 +66,7 @@ export default function Profile () {
     <>
       <StatusBar color={user?.color ?? '#fff'} />
       <button
+        aria-label='Go back'
         className="absolute top-4 left-4 z-50 mr-2 p-2"
         onClick={handleClickBackButton}
         style={{ color: waveTextColor }}
@@ -73,6 +74,7 @@ export default function Profile () {
         <BackIcon width={26} height={26} color={getContrastColor(user?.color ?? '#fff')} />
       </button>
       <button
+        aria-label='Logout'
         className="absolute top-4 right-4 z-50 p-2"
         onClick={logout}
         style={{ color: waveTextColor }}
@@ -170,6 +172,7 @@ export default function Profile () {
             {!!data && <Alert variant='success' description={data.message} />}
 
             <button
+              aria-label='Save profile settings'
               className={cn(
                 'bg-red-400 text-white w-full rounded-md h-[50px] hover:bg-red-600',
                 'disabled:bg-red-300',
