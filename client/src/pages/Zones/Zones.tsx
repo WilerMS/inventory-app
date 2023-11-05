@@ -62,7 +62,7 @@ export default function Zones () {
                 <NavSquareWidget
                   key={zone.id}
                   title={zone.name}
-                  image={zone.image ? buildUrl(`/images/${zone.image}`) : folderImage}
+                  image={zone.image ?? folderImage}
                   path={`/zones/${zone.id}`}
                   imageAlt={zone.name}
                   imgTransitionName={`zone-image-${zone.id}`}

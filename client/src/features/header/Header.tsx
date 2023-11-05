@@ -5,7 +5,6 @@ import cn from 'classnames'
 import { useAppNavigate } from '@/hooks/useAppNavigate'
 import { BackIcon, UserIcon } from '@/icons'
 import { useAppSelector } from '@/redux/hooks'
-import { buildUrl } from '@/constants/env'
 import { useHeaderContext } from './HeaderContext'
 import SearchBar from './SearchBar'
 import { useDebounce } from '@/hooks'
@@ -63,7 +62,7 @@ export const Header = () => {
             {user?.image
               ? <img
                   className='w-full h-full object-cover'
-                  src={buildUrl(`/images/${user.image}`)}
+                  src={user.image}
                   alt=""
                 />
               : <UserIcon />

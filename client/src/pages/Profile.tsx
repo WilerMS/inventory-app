@@ -1,7 +1,7 @@
 import cn from 'classnames'
 
 import { BackIcon, LogoutIcon, UserIcon } from '@/icons'
-import { useAppDispatch, useAppSelector } from '@/redux/hooks'
+import { useAppSelector } from '@/redux/hooks'
 import { useAppNavigate, useAuthentication } from '@/hooks'
 import { buildUrl } from '@/constants/env'
 import { Input, StatusBar, Wave } from '@/components/lib'
@@ -11,8 +11,6 @@ import DualSwitch from '@/components/lib/DualSwitch'
 import Alert from '@/components/lib/Alert'
 import FileInput from '@/components/lib/Uploader'
 import { apiFiles } from '@/services/api'
-import { modifyUserAction } from '@/redux/features/authReducer'
-import { type MutationResponseType } from '@/hooks/useAuthentication'
 import { useHideHeader } from '@/features/header/HeaderContext'
 import { getContrastColor } from '@/utils'
 
@@ -23,7 +21,6 @@ interface UserProfileType extends Partial<UserInterface> {
 export default function Profile () {
   useHideHeader()
   const { navigate } = useAppNavigate()
-  const dispatch = useAppDispatch()
   const { user } = useAppSelector(state => state.auth)
   const { data, error, logout, modifyUser, isLoading } = useAuthentication()
   const [userData, setUserData] = useState<UserProfileType>({
@@ -46,15 +43,14 @@ export default function Profile () {
     const formData = new FormData()
     formData.append('file', file)
 
-    return apiFiles<MutationResponseType>(
-      buildUrl('/files/user-photo'),
+    return apiFiles<{ filename: string }>(
+      buildUrl('/files'),
       {
-        method: 'PUT',
+        method: 'POST',
         body: formData
       }
     ).then(data => {
-      setUserData({ ...userData, image: data.user.image })
-      dispatch(modifyUserAction(data.user))
+      setUserData({ ...userData, image: data.filename })
     })
   }
   const handleSubmitProfile = (e: FormEvent<HTMLFormElement>) => {
@@ -64,14 +60,14 @@ export default function Profile () {
 
   return (
     <>
-      <StatusBar color={user?.color ?? '#fff'} />
+      <StatusBar color={userData?.color ?? '#fff'} />
       <button
         aria-label='Go back'
         className="absolute top-4 left-4 z-50 mr-2 p-2"
         onClick={handleClickBackButton}
         style={{ color: waveTextColor }}
       >
-        <BackIcon width={26} height={26} color={getContrastColor(user?.color ?? '#fff')} />
+        <BackIcon width={26} height={26} color={getContrastColor(userData?.color ?? '#fff')} />
       </button>
       <button
         aria-label='Logout'
@@ -79,10 +75,10 @@ export default function Profile () {
         onClick={logout}
         style={{ color: waveTextColor }}
       >
-        <LogoutIcon width={28} height={28} color={getContrastColor(user?.color ?? '#fff')} />
+        <LogoutIcon width={28} height={28} color={getContrastColor(userData?.color ?? '#fff')} />
       </button>
       <main className='w-full h-full pt-[75px] px-4 pb-[100px] overflow-auto scroll-bar-hide relative'>
-        <Wave firstColor={user?.color ?? '#fff'} secondColor={user?.color ?? '#fff'} />
+        <Wave firstColor={userData?.color ?? '#fff'} secondColor={userData?.color ?? '#fff'} />
         <section className="mb-4">
           <figure className={cn('relative w-full h-[220px] center flex-col')}>
             <picture
@@ -92,8 +88,8 @@ export default function Profile () {
                 contain: 'layout'
               }}
             >
-              {user?.image
-                ? <img className='w-full h-full object-cover' src={buildUrl(`/images/${user.image}`)} alt="" />
+              {userData?.image
+                ? <img className='w-full h-full object-cover' src={userData.image} alt="" />
                 : <UserIcon width={70} height={70} color='#002f41' />
               }
               <FileInput
@@ -106,7 +102,7 @@ export default function Profile () {
               className="z-40 mt-4 -mb-10 text-center font-bold text-2xl"
               style={{ color: waveTextColor }}
             >
-              {user?.username}
+              {userData?.username}
             </figcaption>
           </figure>
         </section>
@@ -148,7 +144,7 @@ export default function Profile () {
               id='gender'
               value={userData.gender}
               label='Gender'
-              bgcolor={user?.color ?? '#000'}
+              bgcolor={userData?.color ?? '#000'}
               textcolor={waveTextColor}
               option1='male'
               option2='female'
@@ -179,7 +175,7 @@ export default function Profile () {
                 'center relative'
               )}
               style={{
-                background: user?.color ?? '#2563eb',
+                background: userData?.color ?? '#2563eb',
                 color: waveTextColor
               }}
             >

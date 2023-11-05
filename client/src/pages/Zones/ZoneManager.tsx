@@ -97,7 +97,7 @@ export default function ZoneManager () {
         <figure className={cn('relative w-full h-[220px] center flex-col')}>
           <picture className=' group w-[200px] h-[200px] overflow-hidden center rounded-full'>
             {zoneData?.image
-              ? <img className='w-full h-full object-cover' src={buildUrl(`/images/${zoneData.image}`)} />
+              ? <img className='w-full h-full object-cover' src={zoneData.image} />
               : <img className='w-[120px]' src={folderImage} alt="Zone" />
             }
             <FileInput

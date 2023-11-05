@@ -66,7 +66,7 @@ export default function Products () {
                 <ProductItem
                   {...product}
                   key={product.id}
-                  image={product.image ? buildUrl(`/images/${product.image}`) : folderImage}
+                  image={product.image ?? folderImage}
                 />
               ))}
             </div>

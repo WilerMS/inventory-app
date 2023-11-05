@@ -123,7 +123,7 @@ export default function Product () {
         <figure className={cn('relative w-full h-[220px] center flex-col')}>
           <picture className=' group w-[200px] h-[200px] overflow-hidden center rounded-full'>
             {productData?.image
-              ? <img className='w-full h-full object-cover' src={buildUrl(`/images/${productData.image}`)} />
+              ? <img className='w-full h-full object-cover' src={productData.image} />
               : <img className='w-[120px]' src={folderImage} alt="Zone" />
             }
             <FileInput

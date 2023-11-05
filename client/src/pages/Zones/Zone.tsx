@@ -40,7 +40,7 @@ export default function Zone () {
             }}
           >
             {zoneFetched?.image
-              ? <img className='w-full h-full object-cover' src={buildUrl(`/images/${zoneFetched.image}`)} />
+              ? <img className='w-full h-full object-cover' src={zoneFetched.image} />
               : <img className='w-full h-full object-cover' src={state?.image ? state.image : folderImage} />
             }
           </picture>
@@ -64,7 +64,7 @@ export default function Zone () {
                   <ProductItem
                     {...product}
                     key={product.id}
-                    image={product.image ? buildUrl(`/images/${product.image}`) : productsImage}
+                    image={product.image ?? productsImage}
                   />
                 ))}
               </div>
