@@ -37,5 +37,6 @@ module.exports = {
       "@typescript-eslint/consistent-type-assertions": "off",
       "@typescript-eslint/ban-ts-comment": "off",
       "@typescript-eslint/no-floating-promises": "off"
-    }
+    },
+    "ignorePatterns": ["deploy.js"]
 }
