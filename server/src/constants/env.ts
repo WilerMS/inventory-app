@@ -8,3 +8,7 @@ export const OBJECTION_DB_PORT = process.env.OBJECTION_DB_PORT ?? 3307
 export const OBJECTION_DB_USER = process.env.OBJECTION_DB_USER ?? 'root'
 export const OBJECTION_DB_PASSWORD = process.env.OBJECTION_DB_PASSWORD ?? 'wiler'
 export const OBJECTION_DB_NAME = process.env.OBJECTION_DB_NAME ?? 'inventory'
+
+export const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME
+export const CLOUDINARY_CLOUD_API_KEY = process.env.CLOUDINARY_CLOUD_API_KEY
+export const CLOUDINARY_CLOUD_API_SECRET = process.env.CLOUDINARY_CLOUD_API_SECRET

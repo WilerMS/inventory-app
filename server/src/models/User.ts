@@ -3,14 +3,13 @@ import { type JSONSchema } from 'objection'
 import { type Zone } from './Zone'
 import { type Product } from './Product'
 import { getPredominantColor } from '@/utils'
-import path from 'path'
 
 // To get types in relationMappings requires imports
 interface ZoneType { Zone: typeof Zone }
 interface ProductType { Product: typeof Product }
 
 export class User extends Model {
-  static tableName: string = 'users_inventory'
+  static tableName: string = 'users'
   static idColumn: string | string[] = 'id'
 
   id!: number
@@ -72,7 +71,7 @@ export class User extends Model {
         relation: Model.HasManyRelation,
         modelClass: Zone,
         join: {
-          from: 'users_inventory.id',
+          from: 'users.id',
           to: 'zones.user_id'
         }
       },
@@ -80,7 +79,7 @@ export class User extends Model {
         relation: Model.HasManyRelation,
         modelClass: Product,
         join: {
-          from: 'users_inventory.id',
+          from: 'users.id',
           to: 'products.user_id'
         }
       }
@@ -101,7 +100,7 @@ export class User extends Model {
 
   async calculateColor () {
     if (this.image) {
-      this.color = await getPredominantColor(path.resolve(__dirname, '..', '..', 'public/images', this.image))
+      this.color = await getPredominantColor(this.image)
     }
   }
 
