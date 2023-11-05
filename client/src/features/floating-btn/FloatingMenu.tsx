@@ -23,7 +23,7 @@ export const FloatingMenu: FC<Props> = ({ children }) => {
         <div
           onClick={handleToggleExpand}
           className={cn(
-            'fixed w-[450px] h-[905px] md:rounded-md z-50 bg-black opacity-70'
+            'fixed w-screen h-screen top-0 left-0 md:rounded-md z-50 bg-black opacity-70'
           )}
         />
       }

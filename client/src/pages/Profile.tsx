@@ -176,7 +176,7 @@ export default function Profile () {
                 'center relative'
               )}
               style={{
-                background: user?.color ?? '#000',
+                background: user?.color ?? '#2563eb',
                 color: waveTextColor
               }}
             >
