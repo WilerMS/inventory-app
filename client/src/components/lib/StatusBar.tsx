@@ -8,9 +8,9 @@ interface Props {
 const StatusBar: FC<Props> = ({ color }) => {
   return (
     <>
-      <Meta name="theme-color" content={color} />
-      <Meta name="apple-mobile-web-app-status-bar-style" content={color} />
-      <Meta name="apple-mobile-web-app-capable" content={color} />
+      <Meta key={color} name="theme-color" content={color} />
+      <Meta key={color} name="apple-mobile-web-app-status-bar-style" content={color} />
+      <Meta key={color} name="apple-mobile-web-app-capable" content={color} />
     </>
   )
 }
