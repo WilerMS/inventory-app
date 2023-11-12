@@ -7,7 +7,7 @@ const FTP_HOST = process.env.FTP_HOST
 const FTP_USER = process.env.FTP_USER
 const FTP_PASSWORD = process.env.FTP_PASSWORD
 
-const delay = ms => new Promise((resolve) => setTimeout(resolve, ms))
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 async function uploadFiles() {
   const client = new Client()
